@@ -1,0 +1,112 @@
+/* card style */
+.slides-css{
+    height: 100%;
+    padding-bottom: 10px;
+  }
+.slides-css h2{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 20px;
+    margin-top:40px;
+    font-size: 30px;
+}
+
+  .main-image{
+    width: 1450px;
+    height: 385px;
+    margin: 10px auto;
+    position: relative;
+ 
+  }
+
+  .card-image{
+    width: 100%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    
+  }
+ 
+
+  .card-image p{
+    margin-top: 5px;
+  }
+  .Perslide {
+   min-width: 230px;
+   height: 280px;
+   padding: 20px;
+   background-color: rgb(239, 239, 240);
+   border-radius: 10px;
+   margin: 10px;
+   
+  }
+  .Perslide:hover{
+    cursor: pointer;
+    box-shadow: 5px 5px 10px black;
+  }
+  .Perslide img{
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow:3px 2px 5px #a8a0a0;
+  }
+
+  .quantity-button{
+    width:20px;
+    height: 20px;
+    border: none;
+
+  }
+  .rightImageArrowStyles{
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    color: rgb(156, 154, 154);
+    width: 60px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: transparent;
+    height: 59px;
+    border: 0px;
+    font-size: 25px;
+    right: 0px;
+  }
+  .leftImageArrowStyles{
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 25px;
+    color:rgba(156, 154, 154);
+    width: 60px;
+    border-radius: 50%;
+    background-color: transparent;
+    text-align: center;
+    height: 59px;
+    border: 0px;
+  }
+  .leftImageArrowStyles:hover{
+    background-color: rgba(230, 217, 217, 0.8);
+    color: rgba(156, 154, 154, 0.8);
+  }
+  .rightImageArrowStyles:hover{
+    background-color:  rgba(230, 217, 217, 0.8);
+    color: rgba(156, 154, 154, 0.8);
+  }
+  .slide-cart-button{
+    border: none;
+    float: right;
+    margin: 2px;
+    background-color:  rgb(104, 177, 104);
+    border-radius: 5px;
+    color: white;
+    padding: 3px 5px;
+   
+  }
+  .slide-cart-button:hover{
+    background-color: rgb(60, 132, 60);
+    box-shadow:3px 2px 5px #0c0c0c;
+  }
+  .slide-cart-button:active{
+    background-color: chocolate;
+  }
