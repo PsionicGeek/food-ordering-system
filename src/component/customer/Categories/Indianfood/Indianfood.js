@@ -1,17 +1,17 @@
 import React from "react";
 import '../categories.css';
-import Food from "../../../../foodimage";
-import { useHistory } from "react-router-dom";
+import Food from "../../../foodImages";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addTocart } from "../../../cart/cartslice";
-import '../../../header/header.css'
+import { addToCart } from "../../cart/cartSlice";
+import '../../Header/Header.css'
 function Indianfood(){
     const dispatch=useDispatch()
     let Food1=Food.filter((ele)=>ele.titlename==='IndianFood');
-    let history=useHistory();
+    let navigate=useNavigate();
     
     function AddtoCart(ele){
-        dispatch(addTocart(ele))
+        dispatch(addToCart(ele))
     }
     function prevImage(){
         let box=document.querySelector('.card-image')
@@ -24,13 +24,13 @@ function Indianfood(){
         box.scrollLeft=box.scrollLeft+width;
     }
     function detail(id){
-        history.push(`/singledish?id=${id}`)
+        navigate(`/singledish?id=${id}`)
     }
     function Alldish(titleId){
-        history.push(`/alldish?id=${titleId}`)
+        navigate(`/alldish?id=${titleId}`)
     }
     function order(){
-        history.push('/cart')
+        navigate('/cart')
     }
     return(
         <div className="indi-css">

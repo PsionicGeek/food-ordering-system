@@ -25,7 +25,7 @@ import { useNavigate } from "react-router-dom";
         dispatch(addToCart(ele));
     }
     function order(){
-        navigate.push('/cart')
+        navigate('/cart')
     }
 
     

@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { clearCartItem, addToCart, decreaseItem, removeItemCart, getTotals } from './cartSlice';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Footer from '../footer/footer';
 function Cart() {
     const navigate = useNavigate();
     const cart=useSelector((state)=>state.cart);
@@ -69,7 +70,7 @@ function Cart() {
                                      <div className="cart-main-body-div2"><h5>₹{cartItems.rate}</h5></div>
 
                                      <div className="quantity">
-                                        <button onClick={()=>decrease(cartItems)}>-</button><span>{cartItems.cartQuantity}</span>
+                                        <button onClick={()=>decrease(cartItems)}>-</button><span>{cartItems.cartTotalQuantity}</span>
                                         <button onClick={()=>increase(cartItems)}>+</button>
                                      </div>
 
@@ -94,7 +95,9 @@ function Cart() {
             }
             </div>
 
+            <Footer/>
+
         </div>
     )
 }
-export default Cart
+export default Cart;
