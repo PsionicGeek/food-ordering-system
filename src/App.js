@@ -9,6 +9,7 @@ import store from './redux/store';
 import { getTotals } from "./component/customer/cart/cartSlice";
 import { Provider } from "react-redux";
 import Alldish from './component/customer/Alldish/alldish';
+import Menu from "./component/customer/Menu/menu";
 function App() {
   store.dispatch(getTotals());
 
@@ -22,6 +23,7 @@ function App() {
     <Route path='/profile' element={<Profile />} />
     <Route path='/login' element={<Login />} />
     <Route path='/alldish' element={<Alldish />}/>
+    <Route path='/menu' element={<Menu />}/>
     </Routes>
     </Provider>
   </BrowserRouter>

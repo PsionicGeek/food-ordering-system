@@ -1,6 +1,6 @@
 import React from 'react'
 import Food from '../../foodImages';
-import './slides.css';
+import '../Categories/categories.css';
 
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../cart/cartSlice';
@@ -26,8 +26,8 @@ function nextImage(){
 }
   return (
     
-    <div className="slides-css">
-             <h2 >Taste Your Bites</h2>
+    <div className="slide-css">
+             <h2>Eat what makes you happy</h2>
         <div className="main-image">
         <button className="leftImageArrowStyles" onClick={()=>prevImage()}> ❰❰</button>
             <button className="rightImageArrowStyles" onClick={()=>nextImage()}> ❱❱</button>

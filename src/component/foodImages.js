@@ -345,6 +345,18 @@ const Food=[
                 titlename:'IndianFood',
                 titleId:4
             },
+            {
+                id:4.6,
+                url:require("../images/Indfood-2.jpg"),
+                rate:'100',
+                title:'Dosa',
+                quantity:'2 pieces',
+                star:4.5,
+                description:'A thin and crispy pancake prepared with fermented dosa batter which is topped with red garlic chutney and potato masala. the appearance and texture is very similar to world famous masala dosa. but the main difference lies with the red garlic chutney spread topped on bangalore dosa.',
+                fakerate:900,
+                titlename:'IndianFood',
+                titleId:4
+            },
 
         
         ]
