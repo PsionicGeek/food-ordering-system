@@ -9,11 +9,12 @@ function Cart() {
     const navigate = useNavigate();
     const cart=useSelector((state)=>state.cart);
     const dispatch=useDispatch();
+    const total=useSelector((state)=>state.cart.totalAmount)
 
-    useEffect(()=>{
-        dispatch(getTotals())
-    },[cart,dispatch])
-    
+    // useEffect(()=>{
+    //     dispatch(getTotals())
+    // },[cart,dispatch])
+
     function remove(ele){
         dispatch(removeItemCart(ele))
     }
@@ -33,7 +34,7 @@ function Cart() {
     function detail(id){
          navigate(`/singledish?id=${id}`)
     }
-   
+
   return (
     <div className="cart-bg">
             <Header />
@@ -42,7 +43,7 @@ function Cart() {
                 cart.cartItems.length===0 ?(
                     <div style={{marginBottom:'165px',padding:'10px'}}>
                         <p>Your cart is currently empty</p>
-                        
+
                     </div>
                 ) :(
                     <div className="cart-main">
@@ -58,7 +59,7 @@ function Cart() {
                                     <div key={cartItems.id} className="cart-main-body">
 
                                      <div className="cart-main-body-div">
-                                        <img src={cartItems.url}   alt={cartItems.title} onClick={()=>detail(cartItems.id)} /> 
+                                        <img src={cartItems.url}   alt={cartItems.title} onClick={()=>detail(cartItems.id)} />
                                      <div style={{paddingLeft:'5px'}}>
                                      <h3 >{cartItems.title}</h3>
                                      <button onClick={()=>remove(cartItems)}>Delete</button>
@@ -73,7 +74,7 @@ function Cart() {
                                      </div>
 
                                      <div className="cart-main-body-div2">
-                                        <div style={{color:'green',fontSize:'23px'}}>₹{cartItems.cartQuantity*cartItems.rate} </div>
+                                        <div style={{color:'green',fontSize:'23px'}}>₹{cartItems.cartTotalQuantity*cartItems.rate} </div>
                                      </div>
                                     </div>
                             ))
@@ -83,8 +84,8 @@ function Cart() {
                                <button className="clearCart-button" onClick={()=>clearcart()}> Clear cart </button>
                             </div>
                             <div>
-                                <p>Subtotal <span style={{fontSize:'12px'}}>*including all taxes*</span>: <b><span style={{fontSize:'23px'}}> ₹{cart.totalAmount}/-</span></b></p>
-                               
+                                <p>Subtotal <span style={{fontSize:'12px'}}>*including all taxes*</span>: <b><span style={{fontSize:'23px'}}> ₹ {total}/-</span></b></p>
+
                                 <button className="Order-button " onClick={order}>Order</button>
                             </div>
                         </div>
@@ -92,7 +93,7 @@ function Cart() {
                 )
             }
             </div>
-            
+
         </div>
     )
 }
