@@ -13,6 +13,7 @@ function App() {
   store.dispatch(getTotals());
 
   return (
+
     <BrowserRouter>
     <Provider store={store}>
     <Routes>
@@ -24,10 +25,10 @@ function App() {
     </Routes>
     </Provider>
   </BrowserRouter>
-  
+
 );
 
-       
+
 }
 
 export default App;
