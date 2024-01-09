@@ -34,10 +34,14 @@ import { createSlice } from "@reduxjs/toolkit";
             state.cartTotalQuantity-=1;
             state.totalAmount-=parseInt(action.payload.rate);
             const itemIndex=state.cartItems.findIndex((ele)=>ele.id===action.payload.id);
-            if(itemIndex>1){
-            state.cartItems[itemIndex].cartTotalQuantity-=1;
-            }
-
+            if(itemIndex>-1){
+                if(state.cartItems[itemIndex].cartTotalQuantity==1){
+                    const newCart=state.cartItems.filter(ele=>ele.id!==action.payload.id);
+                    state.cartItems=newCart;
+                }
+                else{
+            state.cartItems[itemIndex].cartTotalQuantity-=1;}
+                }
         },
 
          clearCartItem(state,action){
