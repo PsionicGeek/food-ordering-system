@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import {alpha, Box, Button, Container, InputBase, Stack, SvgIcon, Typography} from '@mui/material';
+import {alpha, Box, Button, Container, InputBase, Modal, Stack, SvgIcon, Typography} from '@mui/material';
 import {ArrowDownOnSquareIcon, ArrowUpOnSquareIcon, PlusIcon} from "@heroicons/react/20/solid";
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import SearchIcon from "@mui/icons-material/Search";
 import {styled} from "@mui/material/styles";
+import AddCategoryForm from "./form-components/AddCategoryForm";
 
 const categories=[
     {
@@ -111,7 +112,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         },
     },
 }));
+
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 export default function Categories() {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     return (
         <div>
             <Box
@@ -146,7 +163,7 @@ export default function Categories() {
                             />
                         </Search>
                     <Button
-
+                        onClick={handleOpen}
                         startIcon={(
                             <SvgIcon fontSize="small" >
                                 <PlusIcon />
@@ -214,6 +231,16 @@ export default function Categories() {
                     </Stack>
                 </Container>
             </Box>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <AddCategoryForm />
+                </Box>
+            </Modal>
         </div>
     );
 }

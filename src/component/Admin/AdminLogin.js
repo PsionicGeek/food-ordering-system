@@ -9,8 +9,23 @@ import {
     MDBInput
 }
     from 'mdb-react-ui-kit';
+import {useNavigate} from "react-router-dom";
+import adminServices from "../../services/Admin/adminServices";
 
 function AdminLogin() {
+
+    const navigate = useNavigate();
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const onLogin= ()=>{
+        const data=adminServices.onLogin({email, password});
+        console.log(data)
+        if (!data) return;
+        if (data.isAdmin === false) {
+            navigate('/');
+        }
+        navigate('/admin/dashboard');
+    }
     return (
         <MDBContainer fluid>
             <MDBRow>
@@ -26,10 +41,10 @@ function AdminLogin() {
 
                         <h3 className="fw-normal mb-3 ps-5 pb-3" style={{letterSpacing: '1px'}}>Log in</h3>
 
-                        <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Email address' id='formControlLg' type='email' size="lg"/>
-                        <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Password' id='formControlLg' type='password' size="lg"/>
+                        <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Email address' id='email' type='email' size="lg" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                        <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Password' id='password' type='password' size="lg" value={password} onChange={(e)=>setPassword(e.target.value)}/>
 
-                        <MDBBtn className="mb-4 px-5 mx-5 w-100" color='black' size='lg'>Login</MDBBtn>
+                        <MDBBtn className="mb-4 px-5 mx-5 w-100" color='black' size='lg' onClick={onLogin}>Login</MDBBtn>
                         <p className="small mb-5 pb-lg-3 ms-5"><a class="text-muted" href="#!">Forgot password?</a></p>
 
 

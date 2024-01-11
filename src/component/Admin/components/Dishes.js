@@ -1,9 +1,11 @@
-import {alpha, Box, Button, Container, InputBase, Stack, SvgIcon, Typography} from "@mui/material";
+import {alpha, Box, Button, Container, InputBase, Modal, Stack, SvgIcon, Typography} from "@mui/material";
 import {PlusIcon} from "@heroicons/react/20/solid";
 import {MDBBtn, MDBTable, MDBTableBody, MDBTableHead} from "mdb-react-ui-kit";
 import * as React from "react";
 import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
+import AddCategoryForm from "./form-components/AddCategoryForm";
+import AddDishesForm from "./form-components/AddDishesForm";
 //"dish": {
 //  "id": 1,
 //  "name": "Dish 1",
@@ -98,7 +100,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         },
     },
 }));
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 const Dishes = () => {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     return (
         <div>
             <Box
@@ -133,7 +149,7 @@ const Dishes = () => {
                                         />
                                     </Search>
                                     <Button
-
+                                        onClick={handleOpen}
                                         startIcon={(
                                             <SvgIcon fontSize="small" >
                                                 <PlusIcon />
@@ -208,6 +224,16 @@ const Dishes = () => {
                     </Stack>
                 </Container>
             </Box>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <AddDishesForm />
+                </Box>
+            </Modal>
         </div>
     );
 }

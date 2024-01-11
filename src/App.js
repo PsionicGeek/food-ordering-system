@@ -24,6 +24,7 @@ import Dishes from "./component/Admin/components/Dishes";
 import Orders from "./component/Admin/components/Orders";
 import Users from "./component/Admin/components/Users";
 import AdminProfile from "./component/Admin/components/Profile";
+import Dashboard from "./component/Admin/components/Dashboard";
 
 
 
@@ -43,6 +44,7 @@ const router= createBrowserRouter(
           <Route path="/admin-login" element={<AdminLogin />} />
 
           <Route path="/admin" element={<AdminHome />}>
+            <Route path="/admin/dashboard"  element={<Dashboard/>} />
 
             <Route path="categories"  element={<Categories/>} />
             <Route path="dishes"  element={<Dishes/>} />

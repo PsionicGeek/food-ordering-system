@@ -41,7 +41,7 @@ const SideNavBar = ({defaultActive}) => {
   const SidebarItems = [
     {
       name: "Dashboard",
-        path: "/admin",
+        path: "/admin/dashboard",
     },
     {
       name: "Categories",
@@ -71,7 +71,7 @@ const SideNavBar = ({defaultActive}) => {
   return (
     <SidebarParent>
       <SidebarItem>
-          <NavLink to="/admin" style={SidebarText}>Dashboard</NavLink>
+          <NavLink to="/admin/dashboard" style={SidebarText}>Dashboard</NavLink>
       </SidebarItem>
         <SidebarItem>
           <NavLink to="/admin/categories" style={SidebarText}>Categories</NavLink>
