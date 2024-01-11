@@ -6,60 +6,10 @@ import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import AddCategoryForm from "./form-components/AddCategoryForm";
 import AddDishesForm from "./form-components/AddDishesForm";
-//"dish": {
-//  "id": 1,
-//  "name": "Dish 1",
-//  "description": "Dish 1 description",
-//  "image": “www.image.jpg",
-//  "price": 10,
-//  "created_at": "2016-11-22T15:28:52.000Z",
-//  "updated_at": "2016-11-22T15:28:52.000Z",
-//  "deleted_at": null,
-//  "category_id": 1,
-//  "in_stock": true,
-//  "ingredients": ["ingredient 1", "ingredient 2", "ingredient 3"]
-// },
-const dishes=[
-    {
-        id: 1,
-        name: "Dish 1",
-        description: "Dish 1 description",
-        image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
-        price: 10,
-        created_at: "2016-11-22T15:28:52.000Z",
-        updated_at: "2016-11-22T15:28:52.000Z",
-        deleted_at: null,
-        category_id: 1,
-        in_stock: true,
-        ingredients: ["ingredient 1", "ingredient 2", "ingredient 3"]
-    },
-    {
-        id: 2,
-        name: "Dish 2",
-        description: "Dish 2 description",
-        image:"https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
-        price: 10,
-        created_at: "2016-11-22T15:28:52.000Z",
-        updated_at: "2016-11-22T15:28:52.000Z",
-        deleted_at: null,
-        category_id: 1,
-        in_stock: true,
-        ingredients: ["ingredient 1", "ingredient 2", "ingredient 3"]
-    },
-    {
-        id: 3,
-        name: "Dish 3",
-        description: "Dish 3 description",
-        image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
-        price: 10,
-        created_at: "2016-11-22T15:28:52.000Z",
-        updated_at: "2016-11-22T15:28:52.000Z",
-        deleted_at: null,
-        category_id: 1,
-        in_stock: true,
-        ingredients: ["ingredient 1", "ingredient 2", "ingredient 3"]
-    }
-];
+import adminServices from "../../../services/Admin/adminServices";
+import {useEffect} from "react";
+
+
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -112,11 +62,34 @@ const style = {
     p: 4,
 };
 const Dishes = () => {
+
+    const[ dishes, setDishes] = React.useState([]);
     const [open, setOpen] = React.useState(false);
+    useEffect(()=>{
+        getDishes();
+    },[])
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const getDishes=()=>{
+        const data = adminServices.getDishes().then((data)=>{
+            console.log(data)
+            setDishes(data);
+        });
+
+    }
     return (
-        <div>
+        <div style={{
+                width: '80vw',
+                height: '100vh',
+                overflowX: 'hidden',
+                overflowY: 'scroll',
+            '&-ms-overflow-style:': {
+                display: 'none',
+            },
+            }
+            }
+
+        >
             <Box
                 component="main"
                 sx={{
@@ -171,7 +144,7 @@ const Dishes = () => {
                                         <tr>
                                             <th scope='col'>Name</th>
                                             <th scope='col'>Description</th>
-                                            <th scope='col'>Id</th>
+                                            <th scope='col'>Category</th>
                                             <th scope='col'>Ingredients</th>
                                             <th scope='col'>Actions</th>
 
@@ -201,7 +174,7 @@ const Dishes = () => {
 
                                                 </td>
 
-                                                <td>{category.id}</td>
+                                                <td>{category.category.name}</td>
                                                 <td>
                                                     <p className='fw-normal mb-1'>{category.ingredients.map((ingred)=>{
                                                         return ingred+", "
@@ -231,7 +204,7 @@ const Dishes = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <AddDishesForm />
+                    <AddDishesForm handleClose={handleClose} getDishes={getDishes}/>
                 </Box>
             </Modal>
         </div>

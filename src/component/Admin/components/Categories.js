@@ -6,72 +6,74 @@ import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-reac
 import SearchIcon from "@mui/icons-material/Search";
 import {styled} from "@mui/material/styles";
 import AddCategoryForm from "./form-components/AddCategoryForm";
+import adminServices from "../../../services/Admin/adminServices";
+import {useEffect} from "react";
 
-const categories=[
-    {
-        id: 1,
-        name: "Category 1",
-        description: "Category 1 description",
-        image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
-        created_at: "2016-11-22T15:28:52.000Z",
-        updated_at: "2016-11-22T15:28:52.000Z",
-        deleted_at: null
-    },
-    {
-        id: 2,
-        name: "Category 2",
-        description: "Category 2 description",
-        image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
-        created_at: "2016-11-22T15:28:52.000Z",
-        updated_at: "2016-11-22T15:28:52.000Z",
-        deleted_at: null
-    },
-    {
-        id: 3,
-        name: "Category 3",
-        description: "Category 3 description",
-        image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
-        created_at: "2016-11-22T15:28:52.000Z",
-        updated_at: "2016-11-22T15:28:52.000Z",
-        deleted_at: null
-    },
-    {
-        id: 4,
-        name: "Category 4",
-        description: "Category 4 description",
-        image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
-        created_at: "2016-11-22T15:28:52.000Z",
-        updated_at: "2016-11-22T15:28:52.000Z",
-        deleted_at: null
-    },
-    {
-        id: 5,
-        name: "Category 5",
-        description: "Category 5 description",
-        image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
-        created_at: "2016-11-22T15:28:52.000Z",
-        updated_at: "2016-11-22T15:28:52.000Z",
-        deleted_at: null
-    },
-    {
-        id: 6,
-        name: "Category 6",
-        description: "Category 6 description",
-        image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
-        created_at: "2016-11-22T15:28:52.000Z",
-        updated_at: "2016-11-22T15:28:52.000Z",
-        deleted_at: null
-    },
-    {
-        id: 7,
-        name: "Category 7",
-        description: "Category 7 description",
-        image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
-        created_at: "2016-11-22T15:28:52.000Z",
-        updated_at: "2016-11-22T15:28:52.000Z",
-        deleted_at: null
-    }
-];
+// const categories=[
+//     {
+//         id: 1,
+//         name: "Category 1",
+//         description: "Category 1 description",
+//         image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
+//         created_at: "2016-11-22T15:28:52.000Z",
+//         updated_at: "2016-11-22T15:28:52.000Z",
+//         deleted_at: null
+//     },
+//     {
+//         id: 2,
+//         name: "Category 2",
+//         description: "Category 2 description",
+//         image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
+//         created_at: "2016-11-22T15:28:52.000Z",
+//         updated_at: "2016-11-22T15:28:52.000Z",
+//         deleted_at: null
+//     },
+//     {
+//         id: 3,
+//         name: "Category 3",
+//         description: "Category 3 description",
+//         image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
+//         created_at: "2016-11-22T15:28:52.000Z",
+//         updated_at: "2016-11-22T15:28:52.000Z",
+//         deleted_at: null
+//     },
+//     {
+//         id: 4,
+//         name: "Category 4",
+//         description: "Category 4 description",
+//         image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
+//         created_at: "2016-11-22T15:28:52.000Z",
+//         updated_at: "2016-11-22T15:28:52.000Z",
+//         deleted_at: null
+//     },
+//     {
+//         id: 5,
+//         name: "Category 5",
+//         description: "Category 5 description",
+//         image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
+//         created_at: "2016-11-22T15:28:52.000Z",
+//         updated_at: "2016-11-22T15:28:52.000Z",
+//         deleted_at: null
+//     },
+//     {
+//         id: 6,
+//         name: "Category 6",
+//         description: "Category 6 description",
+//         image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
+//         created_at: "2016-11-22T15:28:52.000Z",
+//         updated_at: "2016-11-22T15:28:52.000Z",
+//         deleted_at: null
+//     },
+//     {
+//         id: 7,
+//         name: "Category 7",
+//         description: "Category 7 description",
+//         image: "https://media.istockphoto.com/id/146807105/photo/food-pyramid-pie-chart.jpg?s=612x612&w=0&k=20&c=SX0hFBaED3Wwi0G2pLfhsYN1GRjlyK8wzqHf-qUyJOk=",
+//         created_at: "2016-11-22T15:28:52.000Z",
+//         updated_at: "2016-11-22T15:28:52.000Z",
+//         deleted_at: null
+//     }
+// ];
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -126,9 +128,20 @@ const style = {
     p: 4,
 };
 export default function Categories() {
+    const [categories, setCategories] = React.useState([]);
     const [open, setOpen] = React.useState(false);
+
+    useEffect(() => {
+        getCategories();
+    },[]);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const getCategories =  () => {
+        const data =adminServices.getCategories().then((data)=>{
+            console.log(data)
+            setCategories(data);
+        });
+    }
     return (
         <div>
             <Box
@@ -185,7 +198,7 @@ export default function Categories() {
             <tr>
             <th scope='col'>Name</th>
             <th scope='col'>Description</th>
-            <th scope='col'>Id</th>
+
             <th scope='col'>Actions</th>
 
             </tr>
@@ -194,7 +207,7 @@ export default function Categories() {
 
 {categories.map((category) => (
 
-            <tr>
+            <tr key={category._id}>
             <td>
             <div className='d-flex align-items-center'>
             <img
@@ -214,7 +227,7 @@ export default function Categories() {
 
                     </td>
 
-                    <td>{category.id}</td>
+
                     <td>
                         <MDBBtn color='link' rounded size='sm'>
                             Edit
@@ -238,7 +251,7 @@ export default function Categories() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <AddCategoryForm />
+                    <AddCategoryForm getCategories={getCategories} handleClose={handleClose}/>
                 </Box>
             </Modal>
         </div>

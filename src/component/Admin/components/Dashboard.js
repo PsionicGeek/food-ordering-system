@@ -31,10 +31,12 @@ useEffect(()=>{
 },[])
 
 const getEarning=()=>{
-       const data=adminServices.getEarning();
-        console.log(data)
-        if (!data) return;
-        setEarning(data["totalEarning"]);
+       const data=adminServices.getEarning().then((res)=>{
+              console.log(res)
+              setEarning(res.totalEarning)
+
+       });
+
 
 }
     return (<>

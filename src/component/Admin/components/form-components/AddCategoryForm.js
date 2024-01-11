@@ -1,17 +1,28 @@
 import React, {useState} from 'react';
 import { TextField, Button, Container, Stack } from '@mui/material';
-import { Link } from "react-router-dom"
+import {Link, redirect, useNavigate} from "react-router-dom"
+import adminServices from "../../../../services/Admin/adminServices";
 
 
-const AddCategoryForm = () => {
+const AddCategoryForm = ({handleClose,getCategories}) => {
     const [categoryName, setCategorytName] = useState('')
     const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
+    const navigate=useNavigate();
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(categoryName, description, imageUrl)
+       adminServices.addCategory({
+           "name": categoryName,
+              "description": description,
+                "image": imageUrl
+       }).then(data=>{
+              console.log(data)
+           getCategories();
+              handleClose();
+       })
     }
+
 
     return (
         <React.Fragment>

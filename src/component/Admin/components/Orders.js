@@ -5,6 +5,8 @@ import {MDBBtn, MDBTable, MDBTableBody, MDBTableHead} from "mdb-react-ui-kit";
 import * as React from "react";
 import {styled} from "@mui/material/styles";
 import PropTypes from "prop-types";
+import adminServices from "../../../services/Admin/adminServices";
+import {useEffect} from "react";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -47,117 +49,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-//"orders": {
-//      "id": 1,
-//      "status": 1,
-//      "created_at": "2016-11-22T15:28:52.000Z",
-//      "updated_at": "2016-11-22T15:28:52.000Z",
-//      "deleted_at": null,
-//      "user_id": 1,
-//     "total": 10,
-//      "dishes": [
-//        {
-//          "dish_id": 1,
-//          "quantity": 1
-//        }
-//      ]
-//  },
-// "status": {
-//  "1": "pending",
-//  "2": "in progress",
-//  "3": "ready",
-//  "4": "delivered",
-//  "5": "cancelled"
-//
-//
-// },
 
-const orders=[
-    {
-        id:1,
-        status:1,
-        created_at:"2016-11-22T15:28:52.000Z",
-        updated_at:"2016-11-22T15:28:52.000Z",
-        deleted_at:null,
-        user_id:1,
-        total:10,
-        dishes:[
-            {
-                dish_id:1,
-                quantity:1
-            },
-            {
-                dish_id:2,
-                quantity:1
-            }
-        ]
-    },
-    {
-        id:2,
-        status:2,
-        created_at:"2016-11-22T15:28:52.000Z",
-        updated_at:"2016-11-22T15:28:52.000Z",
-        deleted_at:null,
-        user_id:1,
-        total:10,
-        dishes:[
-            {
-                dish_id:1,
-                quantity:1
-            }
-        ]
-    },
-    {
-        id:3,
-        status:3,
-        created_at:"2016-11-22T15:28:52.000Z",
-        updated_at:"2016-11-22T15:28:52.000Z",
-        deleted_at:null,
-        user_id:1,
-        total:10,
-        dishes:[
-            {
-                dish_id:1,
-                quantity:1
-            }
-        ]
-    },
-    {
-        id:4,
-        status:4,
-        created_at:"2016-11-22T15:28:52.000Z",
-        updated_at:"2016-11-22T15:28:52.000Z",
-        deleted_at:null,
-        user_id:1,
-        total:10,
-        dishes:[
-            {
-                dish_id:1,
-                quantity:1
-            }
-        ]
-    },
-    {
-        id:5,
-        status:5,
-        created_at:"2016-11-22T15:28:52.000Z",
-        updated_at:"2016-11-22T15:28:52.000Z",
-        deleted_at:null,
-        user_id:1,
-        total:10,
-        dishes:[
-            {
-                dish_id:1,
-                quantity:1
-            }
-        ]
-    }
-
-
-];
 const Orders = () => {
+    const [orders, setOrders] = React.useState([]);
     const [value, setValue] = React.useState(0);
-
+useEffect(()=>{
+    getOrders();
+},[]);
+    const getOrders=()=>{
+        adminServices.getOrders().then((data)=>{
+            setOrders(data);
+        })
+            .catch((err)=>{
+                console.log(err)
+            })
+    }
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -233,13 +139,13 @@ const Orders = () => {
                                                          <div className='d-flex align-items-center'>
 
                                                              <div className='ms-3'>
-                                                                 <p className='fw-bold mb-1'>{order.id}</p>
+                                                                 <p className='fw-bold mb-1'>{order._id}</p>
 
                                                              </div>
                                                          </div>
                                                      </td>
                                                      <td>
-                                                         <p className='fw-normal mb-1'>{order.user_id}</p>
+                                                         <p className='fw-normal mb-1'>{order.user}</p>
 
                                                      </td>
                                                      <td>
@@ -251,11 +157,11 @@ const Orders = () => {
 
                                                      </td>
                                                      <td>
-                                                         <p className='fw-normal mb-1'>{order.dishes.map((dish)=>{
+                                                         <p className='fw-normal mb-1'>{order.dishes.map((d)=>{
                                                              return (
                                                                  <div>
-                                                                     <p className='fw-normal mb-1'>{dish.dish_id + ' x '
-                                                                         + dish.quantity}</p>
+                                                                     <p className='fw-normal mb-1'>{d.dish.name + ' x '
+                                                                         + d.quantity}</p>
                                                                  </div>
                                                              )
                                                          })}</p>

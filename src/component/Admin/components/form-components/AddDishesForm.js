@@ -1,22 +1,40 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TextField, Button, Container, Stack, Select, MenuItem, Box} from '@mui/material';
 import { Link } from "react-router-dom"
+import adminServices from "../../../../services/Admin/adminServices";
 
 
 
-const AddDishForm = () => {
-    const [categoryName, setCategorytName] = useState('')
+const AddDishForm = ({handleClose,getDishes}) => {
+    const [dishName, setDishName] = useState('')
     const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
     const [category, setCategory] = React.useState('');
-
+    const [ingredients, setIngredients] = useState("");
+    const[categories,setCategories]=useState([])
+    const [price, setPrice] = useState(0);
+    useEffect(() => {
+        getCategories();
+    },[]);
+    const getCategories =  () => {
+        const data =adminServices.getCategories().then((data)=>{
+            console.log(data)
+            setCategories(data);
+        });
+    }
     const handleChange = (event) => {
         setCategory(event.target.value);
     };
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(categoryName, description, imageUrl)
+        const ing=ingredients.split(",");
+        adminServices.addDish({"name":dishName,"description":description,"image":imageUrl,"price":price,"category_name":category,"ingredients":ing}).then(data=>{
+            console.log(data)
+        });
+
+        getDishes();
+        handleClose();
     }
 
     return (
@@ -29,8 +47,8 @@ const AddDishForm = () => {
                         variant='outlined'
                         color='secondary'
                         label="Dishes Name"
-                        onChange={e => setCategorytName(e.target.value)}
-                        value={categoryName}
+                        onChange={e => setDishName(e.target.value)}
+                        value={dishName}
                         fullWidth
                         required
                     />
@@ -50,6 +68,18 @@ const AddDishForm = () => {
                     sx={{mb: 4}}
                 />
                 <TextField
+                    type="number"
+                    variant='outlined'
+                    color='secondary'
+
+                    label="Price"
+                    onChange={e => setPrice(e.target.value)}
+                    value={price}
+                    fullWidth
+                    required
+                    sx={{mb: 4}}
+                />
+                <TextField
                     type="url"
                     variant='outlined'
                     color='secondary'
@@ -60,21 +90,43 @@ const AddDishForm = () => {
                     fullWidth
                     sx={{mb: 4}}
                 />
-                <Container spacing={2} sx={{marginBottom: 4,paddingBottom:4}}>
+                <TextField
+                    type="text"
+                    variant='outlined'
+                    color='secondary'
+                    label="Ingredients"
+                    onChange={e => setIngredients(e.target.value)}
+                    value={ingredients}
+                    required
+                    fullWidth
+                    sx={{mb: 4}}
+                />
+
                     <Select
+
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={category}
-                        label="Age"
+                        label="Category"
                         onChange={handleChange}
+                        fullWidth
+                        variant='outlined'
+                        defaultValue={"Select Category"}
+
+                        style={{color:"black"}}
+
                     >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+
+                        {
+                            categories.map((category)=>{
+                                return <MenuItem value={category.name}>{category.name}</MenuItem>
+                            })
+                        }
+
                     </Select>
-                </Container>
-                <Stack spacing={2} direction="row" sx={{marginBottom: 4}}>
-                <Button variant="outlined" color="secondary" type="submit">Add Category</Button>
+
+                <Stack spacing={2} direction="row" sx={{marginBottom: 4,marginTop:4}} fullWidth>
+                <Button variant="outlined" color="secondary" type="submit" fullWidth>Add Dish</Button>
                 </Stack>
             </form>
 

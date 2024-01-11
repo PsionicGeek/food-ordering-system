@@ -4,85 +4,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import {PlusIcon} from "@heroicons/react/20/solid";
 import {MDBBtn, MDBTable, MDBTableBody, MDBTableHead} from "mdb-react-ui-kit";
 import * as React from "react";
+import adminServices from "../../../services/Admin/adminServices";
+import {useEffect, useState} from "react";
 
-const users=[
-    {
-        "_id": "659e20e8a02273409ab01bc5",
-        "username": "Himanshu",
-        "mobileNumber": "2222222222",
-        "email": "mh@mh.com",
-        "password": "$2b$10$/OXFEporWmD.jMN4HmwMTe6T4qnJaZqXnaDmszjXS2MZP7riKHibu",
-        "address": [
-            "Gurugram",
-            "VWITS"
-        ],
-        "isAdmin": false,
-        "orders": [
-            {
-                "_id": "659e9669b0f3e30b6aeee230",
-                "status": 1,
-                "deleted_at": null,
-                "user": "659e20e8a02273409ab01bc5",
-                "total": 1290,
-                "dishes": [
-                    {
-                        "_id": "659e20bfa02273409ab01bc2",
-                        "name": "Icecream Chicken",
-                        "description": "Chicken with butter",
-                        "image": "www.btck.jpg",
-                        "price": 500,
-                        "deleted_at": null,
-                        "user": "659e20618d4329632d76d0e4",
-                        "in_stock": true,
-                        "ingredients": [
-                            "butter",
-                            "chicken"
-                        ],
-                        "created_at": "2024-01-10T04:44:47.309Z",
-                        "updated_at": "2024-01-10T04:44:47.309Z",
-                        "__v": 0
-                    },
-                    {
-                        "_id": "659e8ca5d0dc7a4b710839bf",
-                        "name": "Daal Makahani",
-                        "description": "Daal",
-                        "image": "www.btck.jpg",
-                        "price": 790,
-                        "deleted_at": null,
-                        "user": "659e23d3a02273409ab01bd2",
-                        "in_stock": true,
-                        "ingredients": [
-                            "Daal",
-                            "Makahani"
-                        ],
-                        "created_at": "2024-01-10T12:25:09.945Z",
-                        "updated_at": "2024-01-10T12:25:09.945Z",
-                        "__v": 0
-                    }
-                ],
-                "created_at": "2024-01-10T13:06:49.207Z",
-                "updated_at": "2024-01-10T13:06:49.207Z",
-                "__v": 0
-            }
-        ],
-        "__v": 1
-    },
-    {
-        "_id": "659e2219a02273409ab01bcb",
-        "username": "Mohak",
-        "mobileNumber": "2222242222",
-        "email": "ok@ok.com",
-        "password": "$2b$10$RwWBZ8mEbJreJ38AvA0dgeqbWWwhSD2zFFnbKQoKXVPuSpVwPOhla",
-        "address": [
-            "Gurugram",
-            "VWITS"
-        ],
-        "isAdmin": false,
-        "orders": [],
-        "__v": 0
-    },
 
-];
 
 
 
@@ -127,8 +52,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 const Users = () => {
+    const [users, setUsers] = useState([]);
+    useEffect(()=>{
+        getUsers();
+    }
+    ,[])
+    const getUsers=()=>{
+        adminServices.getUsers().then((data)=>{
+console.log(data)
+            setUsers(data)
+        });
+
+
+
+
+    }
     return (
-        <div>
+        <div style={{
+            width: '80vw',
+            height: '100vh',
+            overflowX: 'hidden',
+            overflowY: 'scroll',
+            '&-ms-overflow-style:': {
+                display: 'none',
+            },
+        }
+        }>
             <Box
                 component="main"
                 sx={{
