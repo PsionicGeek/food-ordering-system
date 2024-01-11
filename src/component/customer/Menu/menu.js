@@ -1,72 +1,93 @@
-import React, {useEffect} from 'react'
-import Indianfood from '../Categories/Indianfood/Indianfood';
-import Koreanfood from '../Categories/koreanfood/Koreanfood';
-import Italianfood from '../Categories/Italianfood/Italianfood';
+import React, { useEffect, useState } from 'react'
 import Header from '../Header/Header';
-import customerController from "../../../services/Customer/customerServices";
-import {addToCart} from "../cart/cartSlice";
-import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-
-
+import { useDispatch } from 'react-redux';
+import customerController from '../../../services/customer/customerServices';
+import { addToCart } from '../cart/cartSlice';
+import { CardImage, IndiCss, IndiCssH3, MainImage, Perslide, PerslideImage, SlideCartButton } from '../Categories/categoriesStyle';
 export default function Menu() {
-  const[dishes,setDishes]=React.useState([]);
-  let navigate=useNavigate();
-  const dispatch=useDispatch()
-    useEffect(
-        () => {
-
-                setDishes( customerController.getDishes());
 
 
+  const dispatch=useDispatch();
+  const[categories,setCategories]=useState([]);
+  const[dishes,setDishes]=useState([]);
 
-        },
-        [],
-    );
-  function AddtoCart(ele){
-    dispatch(addToCart(ele))
+
+  useEffect(() => {
+      getCategories();
+  },[]);
+
+    const getCategories=() => {
+      const data = customerController.getCategories().then((data)=>{
+        console.log(data);
+          setCategories(data);
+      });
   }
+  useEffect(() => {
+    getDishes();
+},[]);
+
+  const getDishes=() => {
+    const data = customerController.getDishes().then((data)=>{
+      console.log(data);
+        setDishes(data);
+    });
+}
   function prevImage(){
     let box=document.querySelector('.card-image')
     let width = box.clientWidth;
     box.scrollLeft = box.scrollLeft - width;
-  }
-  function nextImage(){
-    let box=document.querySelector('.card-image')
-    let width=box.clientWidth;
-    box.scrollLeft=box.scrollLeft+width;
-  }
-  function detail(id){
-    navigate(`/singledish?id=${id}`)
-  }
-  function Alldish(titleId){
-    navigate(`/alldish?id=${titleId}`)
-  }
-  function order(){
-    navigate('/cart')
-  }
+}
+function nextImage(){
+  let box=document.querySelector('.card-image')
+  let width=box.clientWidth;
+  box.scrollLeft=box.scrollLeft+width;
+}
+function AddtoCart(ele){
+  dispatch(addToCart(ele));
+}
+function order(){
+  alert('Your order placed successfully!!')
 
-
-  return (
-    <>
-    <Header/>
-    { dishes.map((ele) => {
-      return(
-          <div key={ele.id} className='Perslide'>
-
-            <img src={ele.url} alt={ele.title}></img>
-            <p>{ele.name}{' '}[{ele.quantity}]</p>
-            <span style={{display:'block'}}>₹{ele.rate}</span>
-            <button className="slide-cart-button" onClick={order}>Order</button>{'  '}<button className="slide-cart-button" onClick={()=>AddtoCart(ele)}>+Add toCart</button>
-          </div>
-      )
-
-    })
 }
 
-    // <Indianfood />
-    // <Italianfood />
-    // <Koreanfood />
-    </>
-  )
+  return(
+    <>
+    <Header />{
+    categories.map((category)=>{
+      const categoryDishes = dishes.filter((ele) => ele.category.name === category.name);
+      if (categoryDishes.length > 0) {
+      return <>
+   <IndiCss>
+   <IndiCssH3>{category.name}</IndiCssH3>
+        <MainImage>
+
+               <CardImage >{
+                categoryDishes.map((ele)=>{
+                return <>
+                     <Perslide key={ele.id} className='Perslide' >
+                    <PerslideImage src={ele.image} alt={ele.title}></PerslideImage>
+                    <p>{ele.name}{' '} </p>
+                    <span style={{display:'block'}}>₹{ele.price}
+                    <SlideCartButton onClick={order} >Order</SlideCartButton>{'  '}<SlideCartButton onClick={()=>AddtoCart(ele)}>+Add toCart</SlideCartButton>
+                    </span>
+                </Perslide>
+                    </>
+               }
+               )
+               }
+
+
+
+
+        </CardImage>
+
+        </MainImage>
+
+        </IndiCss>
+        </>
+      }
+                })
+            }
+        </>
+    )
 }
