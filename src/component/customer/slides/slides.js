@@ -1,54 +1,80 @@
 import React from 'react'
-import Food from '../../foodImages';
-import '../Categories/categories.css';
+import customerController from '../../../component/services/customer/customerServices';
 
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../cart/cartSlice';
-
+import { CardImage, LeftImageArrowStyles, MainImage, Perslide, RightImageArrowStyles, SlideCartButton, SlideCss, SlideCssH2,PerslideImage } from '../Categories/categoriesStyle';
 
 function Slides() {
-let Food1=Food.filter((ele)=>ele.titleId===4);
+  const[dishes,setDishes]=useState([]);
+  const cardImageRef = useRef(null);
+ 
+  useEffect(() => {
+    getDish();
+},[]);
+
+  const getDish=() => {
+    const data = customerController.getDishes().then((data)=>{
+      console.log(data);
+        setDishes(data);
+    });
+}
 const dispatch=useDispatch();
 
 function AddtoCart(ele){
     dispatch(addToCart(ele));
 }
+function order(){
+  alert('Your order placed successfully!!')
+
+}
   
   function prevImage(){
-    let box=document.querySelector('.card-image')
-    let width = box.clientWidth;
-    box.scrollLeft = box.scrollLeft - width;
+    if (cardImageRef.current) {
+      const width = cardImageRef.current.clientWidth;
+      cardImageRef.current.scrollLeft -= width;
+    }
 }
 function nextImage(){
-  let box=document.querySelector('.card-image')
-  let width=box.clientWidth;
-  box.scrollLeft=box.scrollLeft+width;
+  if (cardImageRef.current) {
+    const width = cardImageRef.current.clientWidth;
+    cardImageRef.current.scrollLeft += width;
+  }
 }
   return (
+  
     
-    <div className="slide-css">
-             <h2>Eat what makes you happy</h2>
-        <div className="main-image">
-        <button className="leftImageArrowStyles" onClick={()=>prevImage()}> ❰❰</button>
-            <button className="rightImageArrowStyles" onClick={()=>nextImage()}> ❱❱</button>
-        <div className="card-image" >
+    
+    <SlideCss>
+             <SlideCssH2>Eat what makes you happy</SlideCssH2>
+        <MainImage>
+        
+        <LeftImageArrowStyles onClick={()=>prevImage()}> ❰❰</LeftImageArrowStyles>
+            <RightImageArrowStyles onClick={nextImage}> ❱❱</RightImageArrowStyles>
+        <CardImage  ref={cardImageRef}>
             {  
-                Food1.map((ele)=>(
-                
-                     <div key={ele.id} className='Perslide' >
-                    <img src={ele.url} alt={ele.title}></img>
-                    <p>{ele.title}{' '}[{ele.quantity}] </p>
-                    <span style={{display:'block'}}>₹{ele.rate}</span>
-                    <button className="slide-cart-button">Order</button>{'  '}<button className="slide-cart-button" onClick={()=>AddtoCart(ele)}>+Add toCart</button>
-                </div>
+                dishes.map((ele)=>{
+                     return <>
+                     <Perslide key={ele._id}>
+                    <PerslideImage  src={ele.image} alt={ele.name}></PerslideImage>
+                    <p>{ele.name}</p>
+                    <span style={{display:'block'}}>₹{ele.price}
+                     
+                    <SlideCartButton button onClick={order}>Order</SlideCartButton>{'  '}<SlideCartButton onClick={()=>AddtoCart(ele)}>+Add toCart</SlideCartButton>
+                    </span>
+                </Perslide>
+                </>
+                }
                  
-                ))
+                )
             }
-        </div>
+        </CardImage>
         
-        </div>
+       </MainImage>
         
-        </div>
+        </SlideCss>
+        
         
   )
 }

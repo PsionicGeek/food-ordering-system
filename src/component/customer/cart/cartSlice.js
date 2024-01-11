@@ -11,9 +11,9 @@ import { createSlice } from "@reduxjs/toolkit";
         initialState,
         reducers:{
         addToCart(state,action){
-            const itemIndex=state.cartItems.findIndex((ele)=>ele.id===action.payload.id);
+            const itemIndex=state.cartItems.findIndex((ele)=>ele._id===action.payload._id);
             state.cartTotalQuantity+=1;
-            state.totalAmount+=parseInt(action.payload.rate);
+            state.totalAmount+=parseInt(action.payload.price);
             console.log(state.totalAmount);
             if(itemIndex>=0){
             state.cartItems[itemIndex].cartTotalQuantity+=1;
@@ -26,17 +26,17 @@ import { createSlice } from "@reduxjs/toolkit";
         },
         removeItemCart(state,action){
             state.cartTotalQuantity-=action.payload.cartTotalQuantity;
-            state.totalAmount-=parseInt(action.payload.rate)*action.payload.cartTotalQuantity;
-            const newCart=state.cartItems.filter(ele=>ele.id!==action.payload.id);
+            state.totalAmount-=parseInt(action.payload.price)*action.payload.cartTotalQuantity;
+            const newCart=state.cartItems.filter(ele=>ele._id!==action.payload._id);
             state.cartItems=newCart;
         },
         decreaseItem(state,action){
             state.cartTotalQuantity-=1;
-            state.totalAmount-=parseInt(action.payload.rate);
-            const itemIndex=state.cartItems.findIndex((ele)=>ele.id===action.payload.id);
+            state.totalAmount-=parseInt(action.payload.price);
+            const itemIndex=state.cartItems.findIndex((ele)=>ele._id===action.payload._id);
             if(itemIndex>-1){
                 if(state.cartItems[itemIndex].cartTotalQuantity==1){
-                    const newCart=state.cartItems.filter(ele=>ele.id!==action.payload.id);
+                    const newCart=state.cartItems.filter(ele=>ele._id!==action.payload._id);
                     state.cartItems=newCart;
                 }
                 else{
@@ -46,11 +46,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
          clearCartItem(state,action){
              state.cartItems=[];
+             state.cartTotalQuantity=0;
          },
          getTotals(state,action){
             let {total,quantity}= state.cartItems.reduce((cartTotal,ele)=>{
-                 const {rate,cartQuantity}=ele;
-                 const itemTotal=rate*cartQuantity;
+                 const {price,cartQuantity}=ele;
+                 const itemTotal=price*cartQuantity;
 
                  cartTotal.total+=itemTotal
                  cartTotal.quantity+=cartQuantity

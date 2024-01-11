@@ -1,31 +1,50 @@
 import React from "react";
-import Food from "../../foodImages";
-import './categories.css'
-import indian from '../../../images/indianfood.jpg'
-import italian from '../../../images/italianfood.jpg'
-import korean from '../../../images/korean.png'
 import { useNavigate } from "react-router-dom";
-
+import { useEffect , useState, useRef} from "react";
+import customerController from "../../services/customer/customerServices";
+import { CategoryList, CategoryListH2, CategoryMain, CategoryMainImage, CategoryMainP,LeftImageArrowStyles,RightImageArrowStyles } from "./categoriesStyle";
 function Categories(){
     const navigate = useNavigate();
-    let Food1=Food.filter((ele)=>ele.titlename==='IndianFood');
-    let Food2=Food.filter((ele)=>ele.titlename==='ItalianFood');
-    let Food3=Food.filter((ele)=>ele.titlename==='korean');
-    function handleAllDish(titleId) {
-        navigate(`/alldish?id=${titleId}`);
+    const[categories,setCategories]=useState([]);
+    
+
+    useEffect(() => {
+        getCategories();
+    },[]);
+    
+      const getCategories=() => {
+        const data = customerController.getCategories().then((data)=>{
+          console.log(data);
+            setCategories(data);
+        });
+    }
+          
+       
+    function handleAllDish(categoryName) {
+            navigate(`/alldish?categoryName=${categoryName}`); 
     }
     return (
-        <div className="category-list">
-           <h2>Categories</h2>
-           <div className="category-main">
-           <div><img src={indian} alt='Indian' onClick={()=>handleAllDish(Food1[0].titleId)} ></img>
-           <p >Indian cuisins</p></div> 
-           <div><img src={italian} alt='italian' onClick={()=>handleAllDish(Food2[0].titleId) }  ></img>
-           <p>Italian cuisins</p></div> 
-           <div><img src={korean} alt='korean'  onClick={()=>handleAllDish(Food3[0].titleId) } ></img>
-           <p>Korean cuisins</p></div>
+        
+        <CategoryList>
+        <CategoryListH2>Categories</CategoryListH2>
+        
+         <CategoryMain>{
+        categories.map((ele)=>{
+            return <>
+           <div  key={ele._id}>
+          
+            <CategoryMainImage src={ele.image} onClick={()=>handleAllDish(ele.name)} ></CategoryMainImage>
+           <CategoryMainP>{ele.name}</CategoryMainP>
            </div>
-        </div>
+            </>
+            }
+        )
+         }
+        
+        </CategoryMain>
+     
+        </CategoryList>
+        
     )
 }
 export default Categories

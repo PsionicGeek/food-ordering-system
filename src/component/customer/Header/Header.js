@@ -1,30 +1,34 @@
 import React from "react";
 import logo from '../../../images/logo.png'
 import cartimg from '../../../images/cart.png'
-import './Header.css';
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { HeaderContainer, SearchInput, Logo, NavbarItem, CartImage,Navbar,SearchButton,Message, CartItem } from "./HeaderStyle";
 
 
 function Header(){
      const {cartTotalQuantity}=useSelector((state)=>state.cart)
     return(
-        <div className="header">
+        <HeaderContainer>
 
-            <img src={logo} className='logo' alt=""></img>
-            <div><input type='text' className="search-input"/><button >Search</button></div>
+            <Logo src={logo} className='logo' alt=""></Logo>
+            <div><SearchInput type='text' className="search-input"/><SearchButton>Search</SearchButton></div>
 
 
-            <ul className="navbar">
-            <li><Link to="/" style={{color:"black",marginTop:'12px', textDecoration: 'none' }} >Home</Link></li>
-            <li><Link to="/cart"><img className="cartimg"  src={cartimg} alt=""></img></Link></li>
-            <span className="msg"> {cartTotalQuantity}</span>
-            {' '}
-            <li><Link to="/profile" style={{color:"black",marginTop:'12px', textDecoration: 'none' }} >Profile</Link></li>
-            <li><Link to="/login" style={{color:"black",marginTop:'12px', textDecoration: 'none' }}>Log out</Link></li>
-            </ul>
+            <Navbar >
+            <NavbarItem><Link to="/" style={{color:"black",marginTop:'12px', textDecoration: 'none' }} >Home</Link></NavbarItem>
+            
+            <CartItem>
+            <NavbarItem>
+            <Link to="/cart">
+            <CartImage src={cartimg}/></Link></NavbarItem>
+            <Message> {cartTotalQuantity}</Message>
+            </CartItem>
+            <NavbarItem><Link to="/profile" style={{color:"black",marginTop:'12px', textDecoration: 'none' }} >Profile</Link></NavbarItem>
+            <NavbarItem><Link to="/login" style={{color:"black",marginTop:'12px', textDecoration: 'none' }}>Log out</Link></NavbarItem>
+            </Navbar>
 
-        </div>
+        </HeaderContainer>
 
     )
 }

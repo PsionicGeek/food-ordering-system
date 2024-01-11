@@ -1,54 +1,66 @@
-
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { addToCart } from "../cart/cartSlice";
-import Food from '../../foodImages';
 import { useDispatch } from "react-redux";
 import Header from '../Header/Header';
 import { useNavigate } from "react-router-dom";
+import customerController from "../../services/customer/customerServices";
+import Footer from "../footer/footer";
+import { AllDishCard, PerslideImage, SlideCartButton, Perslide } from "../Categories/categoriesStyle";
 
- function Alldish() {
-    const [details,setDetails]=useState([]);
+function Alldish() {
+  const [details, setDetails] = useState([]);
+  const[dishes,setDishes]=useState([]);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const location=useLocation();
-    const navigate = useNavigate();
+  useEffect(() => {
+    fetchData();
+  }, [location.search]);
 
-    const dispatch = useDispatch();
+  const fetchData = async () => {
+    try {
+      const fetchedDishes = await customerController.getDishes();
+      setDishes(fetchedDishes);
 
-    useEffect(() => {
-        let data = Food.filter((ele)=>ele.titleId==query.get('id'));
+      let categoryName = new URLSearchParams(location.search).get('categoryName');
+      const data = fetchedDishes.filter((ele) => ele.category.name === categoryName);
       setDetails(data);
-    }, []);
-   
-    let query=new URLSearchParams(location.search);
-    function AddtoCart(ele){
-        dispatch(addToCart(ele));
+    } catch (error) {
+      console.error("Error fetching dishes:", error);
     }
-    function order(){
-        navigate('/cart')
-    }
+  };
 
-    
-    return(
-        <div className="sfp-bg">
-            <Header />
-           
-            <div className="All-dish-card">
-            {
-                details.map((ele)=>{
-                    return <div key={ele.id} className='Perslide'>
-                    <img src={ele.url} alt={ele.title}></img>
-                    <p>{ele.title}{' '}[{ele.quantity}]</p>
-                    <span style={{display:'block'}}>₹{ele.rate}</span>
-                    <button className="slide-cart-button" onClick={order}>Order</button>{'  '}<button className="slide-cart-button" onClick={()=>AddtoCart(ele)}>+Add toCart</button>
-                </div>
-                
-                })
-            }
-            </div>
-             
 
-        </div>
-    )
+  function AddtoCart(ele) {
+    dispatch(addToCart(ele));
+  }
+
+  function order() {
+    navigate('/cart');
+  }
+
+  return (
+    <>
+      <Header />
+
+      <AllDishCard>
+        {details.map((ele) => (
+          <Perslide key={ele._id} >
+            <PerslideImage src={ele.image} alt={ele.category.name}></PerslideImage>
+            <p>{ele.name}{' '}[{ele.quantity}]</p>
+            <span style={{ display: 'block' }}>₹{ele.price}
+            <SlideCartButton  onClick={order}>Order</SlideCartButton>{'  '}
+            <SlideCartButton  onClick={() => AddtoCart(ele)}>+Add to Cart</SlideCartButton>
+            </span>
+          </Perslide>
+        ))}
+     
+      <Footer/>
+    </AllDishCard>
+    </>
+  );
 }
+
 export default Alldish;
