@@ -4,7 +4,7 @@ import { addToCart } from "../cart/cartSlice";
 import { useDispatch } from "react-redux";
 import Header from '../Header/Header';
 import { useNavigate } from "react-router-dom";
-import customerController from "../../services/customer/customerServices";
+import customerController from "../../../services/customer/customerServices";
 import Footer from "../footer/footer";
 import { AllDishCard, PerslideImage, SlideCartButton, Perslide } from "../Categories/categoriesStyle";
 
@@ -56,7 +56,7 @@ function Alldish() {
             </span>
           </Perslide>
         ))}
-     
+
       <Footer/>
     </AllDishCard>
     </>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../Header/Header';
 import { useDispatch } from 'react-redux';
-import customerController from '../../services/customer/customerServices';
+import customerController from '../../../services/customer/customerServices';
 import { addToCart } from '../cart/cartSlice';
 import { CardImage, IndiCss, IndiCssH3, MainImage, Perslide, PerslideImage, SlideCartButton } from '../Categories/categoriesStyle';
 export default function Menu() {
@@ -10,12 +10,12 @@ export default function Menu() {
   const dispatch=useDispatch();
   const[categories,setCategories]=useState([]);
   const[dishes,setDishes]=useState([]);
-    
+
 
   useEffect(() => {
       getCategories();
   },[]);
-  
+
     const getCategories=() => {
       const data = customerController.getCategories().then((data)=>{
         console.log(data);
@@ -60,7 +60,7 @@ function order(){
    <IndiCss>
    <IndiCssH3>{category.name}</IndiCssH3>
         <MainImage>
-        
+
                <CardImage >{
                 categoryDishes.map((ele)=>{
                 return <>
@@ -75,14 +75,14 @@ function order(){
                }
                )
                }
-                   
-                 
-               
-            
+
+
+
+
         </CardImage>
-        
+
         </MainImage>
-        
+
         </IndiCss>
         </>
       }

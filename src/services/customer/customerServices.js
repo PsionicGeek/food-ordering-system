@@ -35,34 +35,34 @@ function getAllOrders(){
     return data;
 }
 async function order() {
-    try {
-      const response = await axios.post('http://localhost:8000/user/bookOrder', {
-        user_id: '', // Replace with the actual user ID
-        dishList: [];
-
-      if (response.status === 1) {
-        alert('Your order placed successfully!!');
-        dispatch(clearCartItem());
-      } else if((response.status === 2) ) {
-        // Handle error here
-        alert('Your order is preparing!!');
-      }
-      else if((response.status === 3) ) {
-        // Handle error here
-        alert('Your order is ready!!');
-      }
-      else if((response.status === 4) ) {
-        // Handle error here
-        alert('Your order is delivered!!');
-      }
-      else{
-        alert('Your order is cancelled!!');
-      }
-    }
-         catch (error) {
-      console.error('Error occurred while placing the order', error);
-    }
-}
+//     try {
+//       const response = await axios.post('http://localhost:8000/user/bookOrder', {
+//         user_id: '', // Replace with the actual user ID
+//         dishList: [];
+//
+//       if (response.status === 1) {
+//         alert('Your order placed successfully!!');
+//         dispatch(clearCartItem());
+//       } else if((response.status === 2) ) {
+//         // Handle error here
+//         alert('Your order is preparing!!');
+//       }
+//       else if((response.status === 3) ) {
+//         // Handle error here
+//         alert('Your order is ready!!');
+//       }
+//       else if((response.status === 4) ) {
+//         // Handle error here
+//         alert('Your order is delivered!!');
+//       }
+//       else{
+//         alert('Your order is cancelled!!');
+//       }
+//     }
+//          catch (error) {
+//       console.error('Error occurred while placing the order', error);
+//     }
+// }
   }
 
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import customerController from '../../../component/services/customer/customerServices';
+import customerController from '../../../services/customer/customerServices';
 
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
@@ -9,7 +9,7 @@ import { CardImage, LeftImageArrowStyles, MainImage, Perslide, RightImageArrowSt
 function Slides() {
   const[dishes,setDishes]=useState([]);
   const cardImageRef = useRef(null);
- 
+
   useEffect(() => {
     getDish();
 },[]);
@@ -29,7 +29,7 @@ function order(){
   alert('Your order placed successfully!!')
 
 }
-  
+
   function prevImage(){
     if (cardImageRef.current) {
       const width = cardImageRef.current.clientWidth;
@@ -43,39 +43,39 @@ function nextImage(){
   }
 }
   return (
-  
-    
-    
+
+
+
     <SlideCss>
              <SlideCssH2>Eat what makes you happy</SlideCssH2>
         <MainImage>
-        
+
         <LeftImageArrowStyles onClick={()=>prevImage()}> ❰❰</LeftImageArrowStyles>
             <RightImageArrowStyles onClick={nextImage}> ❱❱</RightImageArrowStyles>
         <CardImage  ref={cardImageRef}>
-            {  
+            {
                 dishes.map((ele)=>{
                      return <>
                      <Perslide key={ele._id}>
                     <PerslideImage  src={ele.image} alt={ele.name}></PerslideImage>
                     <p>{ele.name}</p>
                     <span style={{display:'block'}}>₹{ele.price}
-                     
+
                     <SlideCartButton button onClick={order}>Order</SlideCartButton>{'  '}<SlideCartButton onClick={()=>AddtoCart(ele)}>+Add toCart</SlideCartButton>
                     </span>
                 </Perslide>
                 </>
                 }
-                 
+
                 )
             }
         </CardImage>
-        
+
        </MainImage>
-        
+
         </SlideCss>
-        
-        
+
+
   )
 }
 export default Slides;

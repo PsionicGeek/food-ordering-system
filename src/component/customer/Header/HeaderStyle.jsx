@@ -45,6 +45,7 @@ export const SearchButton = styled.button`
 export const Navbar = styled.ul`
   list-style: none;
   float: left;
+    display: flex;
 `;
 
 export const NavbarItem = styled.li`

@@ -4,7 +4,7 @@ import profile from '../../../images/profile.png';
 import bg4 from '../../../images/bg11.jpg';
 import Footer from '../footer/footer';
 import Header from '../Header/Header';
-import customerController from '../../services/customer/customerServices';
+import customerController from '../../../services/customer/customerServices';
 
 const LargeContainer = styled.div`
   margin-left: 20%;
