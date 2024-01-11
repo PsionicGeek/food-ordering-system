@@ -17,14 +17,14 @@ import { getTotals } from "./component/customer/cart/cartSlice";
 import { Provider } from "react-redux";
 import Alldish from './component/customer/Alldish/alldish';
 import Menu from "./component/customer/Menu/menu";
-import AdminLogin from "./component/Admin/AdminLogin";
-import AdminHome from "./component/Admin/components/AdminHome";
-import Categories from "./component/Admin/components/Categories";
-import Dishes from "./component/Admin/components/Dishes";
-import Orders from "./component/Admin/components/Orders";
-import Users from "./component/Admin/components/Users";
-import AdminProfile from "./component/Admin/components/Profile";
-import Dashboard from "./component/Admin/components/Dashboard";
+import AdminLogin from "./component/admin/AdminLogin";
+import AdminHome from "./component/admin/components/AdminHome";
+import Categories from "./component/admin/components/Categories";
+import Dishes from "./component/admin/components/Dishes";
+import Orders from "./component/admin/components/Orders";
+import Users from "./component/admin/components/Users";
+import AdminProfile from "./component/admin/components/Profile";
+import Dashboard from "./component/admin/components/Dashboard";
 
 
 
