@@ -28,6 +28,7 @@ export const SlideCssH2 = styled.h2`
   margin-left: 26px;
   cursor: pointer;
   font-size: 30px;
+    color: rgba(255, 255, 255, 0.9);
   font-family: Verdana, Arial, Helvetica, sans-serif;
 `;
 
@@ -79,6 +80,8 @@ export const CardImage = styled.div`
 export const AllDishCard = styled.div`
   display: flex;
   flex-direction: row;
+    align-content: center;
+    align-items: center;
   justify-content: space-evenly;
   width: 1400px;
   flex-wrap: wrap;
@@ -102,7 +105,7 @@ export const Perslide = styled.div`
 `;
 
 export const PerslideImage = styled.img`
-  width: 100%;
+  width: 200px;
   height: 200px;
   border-radius: 10px;
   box-shadow: 3px 2px 5px #a8a0a0;
@@ -187,11 +190,14 @@ export const CategoryList = styled.div`
   padding-bottom: 10px;
   background-color: rgba(0, 0, 0, 0.168);
   height: 100%;
+    
 `;
 
 export const CategoryMain = styled.div`
   display: flex;
   justify-content: space-evenly;
+    width: 100vw;
+    overflow-x: scroll;
 `;
 
 export const CategoryMainImage = styled.img`

@@ -55,19 +55,26 @@ function AdminLogin() {
 
                         <h3 className="fw-normal mb-3 ps-5 pb-3" style={{letterSpacing: '1px'}}>Log in</h3>
 
-                        <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Email address' id='email' type='email' size="lg" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                        <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Password' id='password' type='password' size="lg" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                        <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Email address' id='email' type='email' size="lg"
+                                  value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Password' id='password' type='password'
+                                  size="lg" value={password} onChange={(e) => setPassword(e.target.value)}/>
 
-                        <MDBBtn className="mb-4 px-5 mx-5 w-100" color='black' size='lg' onClick={onLogin}>Login</MDBBtn>
-                        <p className="small mb-5 pb-lg-3 ms-5"><a class="text-muted" href="/signup">Not Registered</a></p>
-
+                        <MDBBtn className="mb-4 px-5 mx-5 w-100" color='black' size='lg'
+                                onClick={onLogin}>Login</MDBBtn>
+                        <div style={{display:"flex", alignContent:"space-evenly", width:"100%"}}>
+                        <p className="small mb-5 pb-lg-3 ms-5"><a className="text-muted" href="/signup">Not
+                            Registered</a></p>
+                        <p className="small mb-5 pb-lg-3 ms-5"><a className="text-muted" href="/">
+                            Not Now?</a></p>
+</div>
 
                     </div>
 
                 </MDBCol>
 
                 <MDBCol sm='6' className='d-none d-sm-block px-0'>
-                    <img src="https://wallpapers.com/images/high/exquisite-culinary-delight-a-delectable-table-spread-yet-artistic-introduction-to-haute-cuisine-0o0n28p7g6oqi9g1.webp"
+                <img src="https://wallpapers.com/images/high/exquisite-culinary-delight-a-delectable-table-spread-yet-artistic-introduction-to-haute-cuisine-0o0n28p7g6oqi9g1.webp"
                          alt="Login image" className="w-100 vh-100" style={{objectFit: 'cover', objectPosition: 'left'}} />
                 </MDBCol>
 

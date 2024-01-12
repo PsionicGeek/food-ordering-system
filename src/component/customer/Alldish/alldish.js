@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { addToCart } from "../cart/cartSlice";
 import { useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import customerController from "../../../services/customer/customerServices";
 import Footer from "../footer/footer";
 import { AllDishCard, PerslideImage, SlideCartButton, Perslide } from "../Categories/categoriesStyle";
+import SeachView from "../SearchView";
 
 
 function Alldish() {
@@ -41,16 +42,33 @@ function Alldish() {
   function order() {
     navigate('/cart');
   }
-
+  const [isSearch, setIsSearch] = React.useState(false);
+  const [search, setSearch] = React.useState("");
   return (
-    <>
-      <Header />
+    <div >
+      <Header isSearch={setIsSearch} search={setSearch}/>
+      {isSearch ? (
+          <SeachView  search={search}/>
+      ):(<>
+<div style={{
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  width:"100vw",
+  height:"55vh",
+  overflowY:"scroll"
 
+}}>
       <AllDishCard>
-        {details.map((ele) => (
+
+        {details.length === 0 ?
+
+            <h1>Ohh no! currently We're out of Stock, Check out other categories!!</h1>
+            :
+          details.map((ele) => (
           <Perslide key={ele._id} >
             <PerslideImage src={ele.image} alt={ele.category.name}></PerslideImage>
-            <p>{ele.name}{' '}[{ele.quantity}]</p>
+            <p>{ele.name}</p>
             <span style={{ display: 'block' }}>₹{ele.price}
 
             <SlideCartButton  onClick={() => AddtoCart(ele)}>+Add to Cart</SlideCartButton>
@@ -58,9 +76,15 @@ function Alldish() {
           </Perslide>
         ))}
 
-      <Footer/>
+
     </AllDishCard>
-    </>
+</div>
+      </>)}
+      <Footer/>
+
+
+</div>
+
   );
 }
 

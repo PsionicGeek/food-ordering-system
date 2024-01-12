@@ -5,11 +5,27 @@ import { clearCartItem, addToCart, decreaseItem, removeItemCart } from './cartSl
 import Footer from '../footer/footer';
 import { CartBackground, CartContainer, CartMain, CartMainBody, CartMainBodyButton, CartMainBodyDiv, CartMainBodyDiv2, CartMainBodyImage, CartMainHead, CartMainHeadH3, CartMainHeadH3H3, ClearCartButton, OrderButton, QuantityButton } from './Cartstyle';
 import customerServices from "../../../services/customer/customerServices";
+import SeachView from "../SearchView";
+import {Box, Modal} from "@mui/material";
+import PaymentForm from "../PaymentForm";
 function Cart() {
     const cart=useSelector((state)=>state.cart);
     const dispatch=useDispatch();
     const total=useSelector((state)=>state.cart.totalAmount)
-
+    const [open, setOpen] = React.useState(false);
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+    const handleClose = () => setOpen(false);
+    const handleOpen = () => setOpen(true);
     function remove(ele){
         dispatch(removeItemCart(ele))
     }
@@ -37,10 +53,15 @@ function Cart() {
         });
         dispatch(clearCartItem())
     }
+    const [isSearch, setIsSearch] = React.useState(false);
+    const [search, setSearch] = React.useState("");
 
   return (
     <CartBackground>
-            <Header />
+        <Header isSearch={setIsSearch} search={setSearch}/>
+        {isSearch ? (
+            <SeachView  search={search}/>
+        ):(<>
             <CartContainer><h1 style={{padding:'10px'}}>Shopping cart</h1>
             {
                 cart.cartItems.length===0 ?(
@@ -76,20 +97,31 @@ function Cart() {
                                     </CartMainBody>
                             ))
                         }
-                        <div style={{display:'flex',justifyContent:'space-between',width:'1100px',marginLeft:'10px'}}>
+                        <div style={{display:'flex',justifyContent:'space-between',width:'85vw',marginLeft:'10px'}}>
                             <div>
                                <ClearCartButton onClick={()=>clearcart()}> Clear cart </ClearCartButton>
                             </div>
-                            <div>
+                            <div style={{display:"flex"}}>
                                 <p>Subtotal <span style={{fontSize:'12px'}}>*including all taxes*</span>: <b><span style={{fontSize:'23px'}}> ₹ {total}/-</span></b></p>
 
-                                <OrderButton onClick={order}>Order</OrderButton>
+                                <OrderButton onClick={handleOpen}>Order</OrderButton>
                             </div>
                         </div>
                     </CartMain>
                 )
             }
             </CartContainer>
+            </>)}
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            <Box sx={style}>
+                <PaymentForm order={order}/>
+            </Box>
+        </Modal>
 
             <Footer/>
 

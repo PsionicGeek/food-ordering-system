@@ -130,6 +130,7 @@ const style = {
 export default function Categories() {
     const [categories, setCategories] = React.useState([]);
     const [open, setOpen] = React.useState(false);
+    const [tempCategory, setTempCategory] = React.useState([]);
 
     useEffect(() => {
         getCategories();
@@ -140,7 +141,20 @@ export default function Categories() {
         const data =adminServices.getCategories().then((data)=>{
             console.log(data)
             setCategories(data);
+            setTempCategory(data)
         });
+    }
+    const onSearch=(e)=>{
+        const value=e.target.value;
+        if(value===''){
+            setCategories(tempCategory);
+        }
+        else{
+            const data=categories.filter((category)=>{
+                return category.name.toLowerCase().includes(value.toLowerCase());
+            })
+            setCategories(data);
+        }
     }
     return (
         <div>
@@ -171,6 +185,7 @@ export default function Categories() {
                                 <SearchIcon />
                             </SearchIconWrapper>
                             <StyledInputBase
+                                onChange={onSearch}
                                 placeholder="Search…"
                                 inputProps={{ 'aria-label': 'search' }}
                             />

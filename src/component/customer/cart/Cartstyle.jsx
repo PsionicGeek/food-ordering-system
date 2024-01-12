@@ -16,6 +16,8 @@ export const CartContainer = styled.div`
   margin: 10px 60px;
   padding: 30px;
   border-radius: 10px;
+    height: 55vh;
+    overflow-y: scroll;
 `;
 
 export const CartMain = styled.div`

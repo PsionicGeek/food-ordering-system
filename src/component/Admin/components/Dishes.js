@@ -65,6 +65,7 @@ const Dishes = () => {
 
     const[ dishes, setDishes] = React.useState([]);
     const [open, setOpen] = React.useState(false);
+    const[tempDish, setTempDish] = React.useState([]);
     useEffect(()=>{
         getDishes();
     },[])
@@ -74,9 +75,24 @@ const Dishes = () => {
         const data = adminServices.getDishes().then((data)=>{
             console.log(data)
             setDishes(data);
+            setTempDish(data)
         });
 
     }
+    const onSearch=(e)=>{
+        const value = e.target.value;
+        console.log(value)
+        if(value===""){
+            setDishes(tempDish)
+        }
+        else{
+            const filter= tempDish.filter((dish)=>{
+                return dish.name.toLowerCase().includes(value.toLowerCase())
+            });
+            setDishes(filter);
+        }
+    }
+
     const deleteDish=(id)=>{
         console.log(id)
         const confir=window.confirm("Are you sure you want to delete this dish?")
@@ -128,6 +144,7 @@ const Dishes = () => {
                                             <SearchIcon />
                                         </SearchIconWrapper>
                                         <StyledInputBase
+                                            onChange={onSearch}
                                             placeholder="Search…"
                                             inputProps={{ 'aria-label': 'search' }}
                                         />

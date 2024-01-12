@@ -27,6 +27,8 @@ const now = new Date();
 
 const Page = () => {
 const[earning,setEarning]=useState(0);
+const [users,setUsers]=useState(0);
+
 
     const navigate = useNavigate();
     const isLogin=localStorage.getItem("isLogged");
@@ -34,6 +36,30 @@ const[earning,setEarning]=useState(0);
 
     const isAdmin = localStorage.getItem('isAdmin');
 
+    useEffect(() => {
+        if (isLogin === "false" || isLogin === null) {
+            navigate('/login');
+        }
+        if (isLogin === "true" && isAdmin === "false") {
+            navigate('/');
+        }
+        if (user) {
+            const userObj = JSON.parse(user);
+            if (!userObj.isAdmin) {
+                navigate('/');
+            }
+        }
+        getEarning();
+        getUsers();
+    },[]);
+
+    const getUsers=()=>{
+        const data=adminServices.getUsers().then((res)=>{
+            console.log(res)
+            setUsers(res.length)
+
+        });
+    }
 const getEarning=()=>{
        const data=adminServices.getEarning().then((res)=>{
               console.log(res)

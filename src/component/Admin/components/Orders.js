@@ -53,12 +53,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Orders = () => {
     const [orders, setOrders] = React.useState([]);
     const [value, setValue] = React.useState(0);
+    const [tempOrder, setTempOrder] = React.useState([]);
+
 useEffect(()=>{
     getOrders();
 },[]);
     const getOrders=()=>{
         adminServices.getOrders().then((data)=>{
             setOrders(data);
+            setTempOrder(data)
         })
             .catch((err)=>{
                 console.log(err)
@@ -76,6 +79,19 @@ useEffect(()=>{
                 alert('Something went wrong')
                 console.log(err)
             })
+    }
+    const onSearch=(e)=>{
+        const value = e.target.value;
+        console.log(value)
+        if(value==''){
+            setOrders(tempOrder);
+        }
+        else{
+            const filteredData = tempOrder.filter((order)=>{
+                return order.user.toLowerCase().includes(value.toLowerCase())||order._id.toLowerCase().includes(value.toLowerCase())
+            })
+            setOrders(filteredData);
+        }
     }
     return (
         <div>
@@ -106,6 +122,7 @@ useEffect(()=>{
                                             <SearchIcon/>
                                         </SearchIconWrapper>
                                         <StyledInputBase
+                                            onChange={onSearch}
                                             placeholder="Search…"
                                             inputProps={{'aria-label': 'search'}}
                                         />

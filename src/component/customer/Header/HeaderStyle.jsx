@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
+    align-items: center;
   padding: 10px 0 0 0;
   margin-bottom: 10px;
   background-color: #e9eaec;
@@ -18,6 +19,7 @@ export const Logo = styled.img`
   margin-right: 60px;
   margin-bottom: 6px;
   margin-top: -10px;
+    cursor: pointer;
 `;
 
 export const SearchInput = styled.input`
@@ -46,6 +48,8 @@ export const Navbar = styled.ul`
   list-style: none;
   float: left;
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 `;
 
 export const NavbarItem = styled.li`

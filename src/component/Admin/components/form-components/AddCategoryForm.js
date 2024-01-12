@@ -27,7 +27,7 @@ const AddCategoryForm = ({handleClose,getCategories}) => {
     return (
         <React.Fragment>
             <h2>Add Category</h2>
-            <form onSubmit={handleSubmit} action={<Link to="/login" />}>
+            <form onSubmit={handleSubmit} >
                 <Stack spacing={2} direction="row" sx={{marginBottom: 4}}>
                     <TextField
                         type="text"

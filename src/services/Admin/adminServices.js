@@ -10,6 +10,9 @@
 
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import api from "../../constants";
+
+
 
 
 function onLogin({email, password}){
@@ -17,7 +20,7 @@ function onLogin({email, password}){
         "email": email,
         "password": password
     }
-    var data = axios.post('http://localhost:8000/user/signin', userObject, {headers: {'Content-Type': 'application/json'}})
+    var data = axios.post(`${api}/user/signin`, userObject, {headers: {'Content-Type': 'application/json'}})
     .then((res)=>{
         console.log(res.data)
         if(res.data.msg){
@@ -44,7 +47,7 @@ function onLogin({email, password}){
 // }
 
 function getEarning(){
-    const data = axios.get('http://localhost:8000/admin/getEarning', {headers: {'Content-Type': 'application/json'}})
+    const data = axios.get(`${api}/admin/getEarning`, {headers: {'Content-Type': 'application/json'}})
     .then((res)=>{
         console.log(res.data)
         return res.data;
@@ -103,7 +106,7 @@ function getEarning(){
 // ]
 
 function getCategories(){
-    const data = axios.get('http://localhost:8000/admin/getCategories', {headers: {'Content-Type': 'application/json'}})
+    const data = axios.get(`${api}/admin/getCategories`, {headers: {'Content-Type': 'application/json'}})
     .then((res)=>{
         console.log(res.data)
         return res.data;
@@ -176,7 +179,7 @@ function getCategories(){
 // ]
 
 function getDishes(){
-    const data = axios.get('http://localhost:8000/user/getDishes', {headers: {'Content-Type': 'application/json'}})
+    const data = axios.get(`${api}/user/getDishes`, {headers: {'Content-Type': 'application/json'}})
     .then((res)=>{
         console.log(res.data)
         return res.data;
@@ -272,7 +275,7 @@ function getDishes(){
 //     }
 //  ]
 const getOrders = async()=>{
-    const data = axios.get('http://localhost:8000/admin/getOrders', {headers: {'Content-Type': 'application/json'}})
+    const data = axios.get(`${api}/admin/getOrders`, {headers: {'Content-Type': 'application/json'}})
     .then((res)=>{
         console.log(res.data)
         return res.data;
@@ -516,7 +519,7 @@ const getOrders = async()=>{
 //     }
 // ]
 const getUsers = async()=>{
-    const data = axios.get('http://localhost:8000/admin/getUsers', {headers: {'Content-Type': 'application/json'}})
+    const data = axios.get(`${api}/admin/getUsers`, {headers: {'Content-Type': 'application/json'}})
         .then((res)=>{
         // console.log(res.data)
         return res.data;
@@ -546,7 +549,7 @@ const getUsers = async()=>{
 // }
 
 const addCategory = async (category)=>{
-const data = axios.post('http://localhost:8000/admin/addCategory', category, {headers: {'Content-Type': 'application/json'}})
+const data = axios.post(`${api}/admin/addCategory`, category, {headers: {'Content-Type': 'application/json'}})
         .then((res)=>{
         console.log(res.data)
         return res.data;
@@ -571,7 +574,7 @@ const data = axios.post('http://localhost:8000/admin/addCategory', category, {he
 // }
 
 const addDish = async (dish)=>{
-const data = axios.post('http://localhost:8000/admin/addDish', dish, {headers: {'Content-Type': 'application/json'}})
+const data = axios.post(`${api}/admin/addDish`, dish, {headers: {'Content-Type': 'application/json'}})
         .then((res)=>{
         console.log(res.data)
         return res.data;
@@ -583,7 +586,7 @@ const data = axios.post('http://localhost:8000/admin/addDish', dish, {headers: {
 
 //PUT : http://localhost:8000/admin/updateStatus/:orderId/:status
 const updateStatus = async (orderId, status)=>{
-const data = axios.put(`http://localhost:8000/admin/updateStatus/${orderId}/${status}`, {}, {headers: {'Content-Type': 'application/json'}})
+const data = axios.put(`${api}/admin/updateStatus/${orderId}/${status}`, {}, {headers: {'Content-Type': 'application/json'}})
         .then((res)=>{
         console.log(res.data)
         return res.data;
@@ -595,7 +598,7 @@ const data = axios.put(`http://localhost:8000/admin/updateStatus/${orderId}/${st
 
 //DELETE : http://localhost:8000/admin/deleteDish/:dishId
 const deleteDish = async (dishId)=>{
-const data = axios.delete(`http://localhost:8000/admin/deleteDish/${dishId}`, {headers: {'Content-Type': 'application/json'}})
+const data = axios.delete(`${api}/admin/deleteDish/${dishId}`, {headers: {'Content-Type': 'application/json'}})
         .then((res)=>{
 
         console.log(res.data)

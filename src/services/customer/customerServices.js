@@ -1,9 +1,10 @@
 
 import axios from "axios";
 import header from "../../component/customer/Header/Header";
+import api from "../../constants";
 
 function getDishes(){
-    const data = axios.get('http://localhost:8000/user/getDishes')
+    const data = axios.get(`${api}/user/getDishes`)
         .then((res)=>{
             console.log(res.data)
             return res.data;
@@ -14,7 +15,7 @@ function getDishes(){
     return data;
 }
 function getCategories(){
-    const data = axios.get('http://localhost:8000/admin/getCategories')
+    const data = axios.get(`${api}/admin/getCategories`)
         .then((res)=>{
             console.log(res.data)
             return res.data;
@@ -41,7 +42,7 @@ function getCategories(){
 //
 
 const signup = async (username, mobileNumber, email, password, address) => {
-    const data = await axios.post('http://localhost:8000/user/signup', {
+    const data = await axios.post(`${api}/user/signup`, {
         "username": username,
         "mobileNumber": mobileNumber,
         "email": email,
@@ -58,7 +59,7 @@ const signup = async (username, mobileNumber, email, password, address) => {
     return data;
 }
 function getAllOrders(){
-    const data = axios.get('http://localhost:8000/user/allOrders/659f8f7744dd5dd23fc828e5')
+    const data = axios.get(`${api}/user/allOrders/659f8f7744dd5dd23fc828e5`)
         .then((res)=>{
             console.log(res.data)
             return res.data;
@@ -92,7 +93,7 @@ async function order(cartItems) {
     console.log(user_id)
     console.log(cartItems)
     console.log(token)
-    const data= await axios.post('http://localhost:8000/user/bookOrder', {
+    const data= await axios.post(`${api}/user/bookOrder`, {
         user_id: user_id, // Replace with the actual user ID
         dishList: cartItems,
     },{headers:{'Authorization':`Bearer ${token}`, 'Content-Type': 'application/json'}});
@@ -206,7 +207,7 @@ const getUserDetails=()=>{
     const token=localStorage.getItem('token');
     console.log(userId)
     console.log(token)
-    const data=axios.get(`http://localhost:8000/user/userDetails/${userId}`,{headers:{'Authorization':`Bearer ${token}`}}).then((res)=>{
+    const data=axios.get(`${api}/user/userDetails/${userId}`,{headers:{'Authorization':`Bearer ${token}`}}).then((res)=>{
         console.log(res.data)
         return res.data;
     });

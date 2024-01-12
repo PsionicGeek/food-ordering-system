@@ -10,6 +10,7 @@ import {Box, Stack, Tab, Tabs, Typography} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import {MDBBtn, MDBTable, MDBTableBody, MDBTableHead} from "mdb-react-ui-kit";
 import PropTypes from "prop-types";
+import SeachView from "../SearchView";
 
 const LargeContainer = styled.div`
   margin-left: 20%;
@@ -301,7 +302,7 @@ const OrderHistoryContent = ({ allOrders }) => {
                                 <div className='d-flex align-items-center'>
 
                                   <div className='ms-3'>
-                                    <p className='fw-bold mb-1'>{order.id}</p>
+                                    <p className='fw-bold mb-1'>{order._id}</p>
 
                                   </div>
                                 </div>
@@ -316,10 +317,11 @@ const OrderHistoryContent = ({ allOrders }) => {
 
                               </td>
                               <td>
-                                <p className='fw-normal mb-1'>{order.dishes.map((dish) => {
+                                <p className='fw-normal mb-1'>{order.dishes.map((d) => {
                                   return (
                                       <div>
-                                        <p className='fw-normal mb-1'>{dish.dish_id + ' x ' + dish.quantity}</p>
+                                        <p className='fw-normal mb-1'>{d.dish.name + ' x '
+                                            + d.quantity}</p>
                                       </div>
                                   )
                                 })}</p>
@@ -390,10 +392,15 @@ const Profile = () => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
   };
+  const [isSearch, setIsSearch] = React.useState(false);
+  const [search, setSearch] = React.useState("");
 
   return (
       <>
-        <Header/>
+      <Header isSearch={setIsSearch} search={setSearch}/>
+      {isSearch ? (
+          <SeachView  search={search}/>
+      ):(<>
         <LargeContainer>
           <TopSection>
             <div>
@@ -435,6 +442,7 @@ const Profile = () => {
             </BottomSection>
           </Container>
         </LargeContainer>
+            </>)}
         <Footer/>
       </>
   );
