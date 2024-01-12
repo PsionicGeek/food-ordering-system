@@ -9,6 +9,7 @@ export const SlideCss = styled.div`
   height: 100%;
   padding-bottom: 10px;
   background: url(${bg2});
+
   background-repeat: no-repeat;
   background-size: cover;
 `;
@@ -62,6 +63,8 @@ export const MainImage = styled.div`
   height: 385px;
   margin: 10px auto;
   position: relative;
+  
+    
 `;
 
 export const CardImage = styled.div`

@@ -18,13 +18,27 @@ function AdminLogin() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const onLogin= ()=>{
-        const data=adminServices.onLogin({email, password});
-        console.log(data)
-        if (!data) return;
-        if (data.isAdmin === false) {
-            navigate('/');
-        }
-        navigate('/admin/dashboard');
+        const data=adminServices.onLogin({email, password}).then((data)=>{
+
+            if(data){
+                console.log(data);
+                localStorage.setItem("token",data.token);
+                localStorage.setItem("isLogged","true");
+                localStorage.setItem("isAdmin",data.isAdmin);
+                localStorage.setItem("user",JSON.stringify(data));
+                localStorage.setItem("userId",data.id);
+                if (data.isAdmin) {
+                    navigate('/admin/dashboard');
+                }else {
+                    navigate('/')
+                }
+
+            }
+            else{
+                alert('Invalid credentials');
+            }
+        });
+
     }
     return (
         <MDBContainer fluid>
