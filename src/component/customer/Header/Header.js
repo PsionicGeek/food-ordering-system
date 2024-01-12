@@ -4,20 +4,22 @@ import cartimg from '../../../images/cart.png'
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { HeaderContainer, SearchInput, Logo, NavbarItem, CartImage,Navbar,SearchButton,Message, CartItem } from "./HeaderStyle";
+import customerServices from "../../../services/customer/customerServices";
 
 
 function Header(){
     const [isLogged, setIsLogged] = React.useState(false);
+    const [username, setUsername] = React.useState("");
     const logOut=()=>{
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        localStorage.removeItem("isLogged");
-        localStorage.removeItem("isAdmin");
+        customerServices.logout();
         setIsLogged(false);
     }
     useEffect(() => {
 const user = localStorage.getItem("user");
+console.log(JSON.parse(user))
+
         if (user) {
+            setUsername(JSON.parse(user).username);
             setIsLogged(true);
         }
     },[]);
@@ -40,7 +42,7 @@ const user = localStorage.getItem("user");
             </CartItem>
                 {isLogged ? (
                     <>
-                        <NavbarItem><Link to="/profile" style={{color:"black",marginTop:'12px', textDecoration: 'none' }} >Profile</Link></NavbarItem>
+                        <NavbarItem><Link to="/profile" style={{color:"black",marginTop:'12px', textDecoration: 'none' }} >{`Hi, ${username}`}</Link></NavbarItem>
                     <NavbarItem onClick={logOut} style={{color:"black", textDecoration: 'none' }}><Link to="/" style={{color:"black",marginTop:'12px', textDecoration: 'none'}}>Log Out</Link></NavbarItem>
                     </> ):( <NavbarItem ><Link to="/login" style={{color:"black",marginTop:'12px', textDecoration: 'none'}}>Log In</Link></NavbarItem>)}
 

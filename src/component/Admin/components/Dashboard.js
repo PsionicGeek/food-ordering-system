@@ -21,14 +21,18 @@ import { alpha, useTheme } from '@mui/material/styles';
 import {ComputerDesktopIcon, DeviceTabletIcon, ListBulletIcon, PhoneIcon, UsersIcon} from "@heroicons/react/20/solid";
 import {useEffect, useState} from "react";
 import adminServices from "../../../services/Admin/adminServices";
+import {useNavigate} from "react-router-dom";
 
 const now = new Date();
 
 const Page = () => {
 const[earning,setEarning]=useState(0);
-useEffect(()=>{
-    getEarning();
-},[])
+
+    const navigate = useNavigate();
+    const isLogin=localStorage.getItem("isLogged");
+    const user = localStorage.getItem('user');
+
+    const isAdmin = localStorage.getItem('isAdmin');
 
 const getEarning=()=>{
        const data=adminServices.getEarning().then((res)=>{

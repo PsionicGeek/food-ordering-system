@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Header from '../Header/Header';
 import { useDispatch } from 'react-redux';
 import customerController from '../../../services/customer/customerServices';
-import { addToCart } from '../cart/cartSlice';
+import {addToCart, clearCartItem} from '../cart/cartSlice';
 import { CardImage, IndiCss, IndiCssH3, MainImage, Perslide, PerslideImage, SlideCartButton } from '../Categories/categoriesStyle';
+import customerServices from "../../../services/customer/customerServices";
 export default function Menu() {
 
 
@@ -45,10 +46,7 @@ function nextImage(){
 function AddtoCart(ele){
   dispatch(addToCart(ele));
 }
-function order(){
-  alert('Your order placed successfully!!')
 
-}
 
   return(
     <>
@@ -68,7 +66,7 @@ function order(){
                     <PerslideImage src={ele.image} alt={ele.title}></PerslideImage>
                     <p>{ele.name}{' '} </p>
                     <span style={{display:'block'}}>₹{ele.price}
-                    <SlideCartButton onClick={order} >Order</SlideCartButton>{'  '}<SlideCartButton onClick={()=>AddtoCart(ele)}>+Add toCart</SlideCartButton>
+                    <SlideCartButton onClick={()=>AddtoCart(ele)}>+Add toCart</SlideCartButton>
                     </span>
                 </Perslide>
                     </>

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { BrowserRouter as Router, Route, Routes, NavLink } from "react-router-dom";
 import styled from 'styled-components';
+import customerServices from "../../services/customer/customerServices";
 
 const SidebarParent = styled.div`
   background: black;
@@ -88,7 +89,9 @@ const SideNavBar = ({defaultActive}) => {
         <SidebarItem>
           <NavLink to="/admin/profile" style={SidebarText}>Profile</NavLink>
         </SidebarItem>
-
+      <SidebarItem>
+        <NavLink to="/login" onClick={customerServices.logout} style={SidebarText}>Log Out</NavLink>
+      </SidebarItem>
     </SidebarParent>
   );
 };

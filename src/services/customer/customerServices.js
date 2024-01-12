@@ -24,6 +24,39 @@ function getCategories(){
         })
     return data;
 }
+
+//POST :  http://localhost:8000/user/signup
+//
+// REQ_BODY  =
+// {
+//   "username": "Shikhar Dhawan",
+//   "mobileNumber": "9811008812",
+//   "email": "shikhi@gmail.com",
+//   "password": "123",
+//   "address": [
+//     "Punjabi Bagh",
+//     "Delhi"
+//   ]
+// }
+//
+
+const signup = async (username, mobileNumber, email, password, address) => {
+    const data = await axios.post('http://localhost:8000/user/signup', {
+        "username": username,
+        "mobileNumber": mobileNumber,
+        "email": email,
+        "password": password,
+        "address": address
+    }, {headers: {'Content-Type': 'application/json'}}).then((res) => {
+        console.log(res.data)
+        return res.data;
+    }).catch((err) => {
+        console.log(err)
+        throw err;
+    });
+    console.log(data);
+    return data;
+}
 function getAllOrders(){
     const data = axios.get('http://localhost:8000/user/allOrders/659f8f7744dd5dd23fc828e5')
         .then((res)=>{
@@ -180,9 +213,12 @@ const getUserDetails=()=>{
     console.log(data);
     return data;
 }
+const logout=()=>{
+   localStorage.clear();
+
+}
 
 
-
-const customerController = {getDishes,getCategories,getAllOrders,order,getUserDetails};
+const customerController = {getDishes,getCategories,getAllOrders,order,getUserDetails,signup,logout};
 
 export default customerController;

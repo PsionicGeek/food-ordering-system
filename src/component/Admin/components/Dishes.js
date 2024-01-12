@@ -77,6 +77,17 @@ const Dishes = () => {
         });
 
     }
+    const deleteDish=(id)=>{
+        console.log(id)
+        const confir=window.confirm("Are you sure you want to delete this dish?")
+        if(!confir){
+            return;
+        }
+        const data = adminServices.deleteDish(id).then((data)=>{
+            console.log(data)
+            getDishes();
+        });
+    }
     return (
         <div style={{
                 width: '80vw',
@@ -182,8 +193,8 @@ const Dishes = () => {
 
                                                 </td>
                                                 <td>
-                                                    <MDBBtn color='link' rounded size='sm'>
-                                                        Edit
+                                                    <MDBBtn color='link' rounded size='sm' onClick={()=>deleteDish(category._id)}>
+                                                        Delete
                                                     </MDBBtn>
                                                 </td>
                                             </tr>

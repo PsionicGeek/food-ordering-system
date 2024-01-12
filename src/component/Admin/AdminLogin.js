@@ -59,7 +59,7 @@ function AdminLogin() {
                         <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Password' id='password' type='password' size="lg" value={password} onChange={(e)=>setPassword(e.target.value)}/>
 
                         <MDBBtn className="mb-4 px-5 mx-5 w-100" color='black' size='lg' onClick={onLogin}>Login</MDBBtn>
-                        <p className="small mb-5 pb-lg-3 ms-5"><a class="text-muted" href="#!">Forgot password?</a></p>
+                        <p className="small mb-5 pb-lg-3 ms-5"><a class="text-muted" href="/signup">Not Registered</a></p>
 
 
                     </div>

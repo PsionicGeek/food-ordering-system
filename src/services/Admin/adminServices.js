@@ -580,5 +580,30 @@ const data = axios.post('http://localhost:8000/admin/addDish', dish, {headers: {
     })
     return data;
 }
-const adminServices = { onLogin,getEarning,getCategories, getDishes,getOrders, getUsers,addCategory,addDish};
+
+//PUT : http://localhost:8000/admin/updateStatus/:orderId/:status
+const updateStatus = async (orderId, status)=>{
+const data = axios.put(`http://localhost:8000/admin/updateStatus/${orderId}/${status}`, {}, {headers: {'Content-Type': 'application/json'}})
+        .then((res)=>{
+        console.log(res.data)
+        return res.data;
+    }).catch((err)=>{
+        throw err;
+    })
+    return data;
+}
+
+//DELETE : http://localhost:8000/admin/deleteDish/:dishId
+const deleteDish = async (dishId)=>{
+const data = axios.delete(`http://localhost:8000/admin/deleteDish/${dishId}`, {headers: {'Content-Type': 'application/json'}})
+        .then((res)=>{
+
+        console.log(res.data)
+        return res.data;
+    }).catch((err)=>{
+        throw err;
+    })
+    return data;
+}
+const adminServices = { onLogin,getEarning,getCategories, getDishes,getOrders, getUsers,addCategory,addDish,updateStatus,deleteDish};
 export default adminServices;

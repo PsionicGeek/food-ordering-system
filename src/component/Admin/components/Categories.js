@@ -199,7 +199,7 @@ export default function Categories() {
             <th scope='col'>Name</th>
             <th scope='col'>Description</th>
 
-            <th scope='col'>Actions</th>
+
 
             </tr>
             </MDBTableHead>
@@ -228,11 +228,7 @@ export default function Categories() {
                     </td>
 
 
-                    <td>
-                        <MDBBtn color='link' rounded size='sm'>
-                            Edit
-                        </MDBBtn>
-                    </td>
+
                 </tr>
     ))}
 

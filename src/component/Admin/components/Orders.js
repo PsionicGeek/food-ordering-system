@@ -67,6 +67,16 @@ useEffect(()=>{
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    const updateStatus=(id,orderStatus)=>{
+        console.log(id,orderStatus);
+        adminServices.updateStatus(id,orderStatus).then((data)=>{
+            getOrders();
+        })
+            .catch((err)=>{
+                alert('Something went wrong')
+                console.log(err)
+            })
+    }
     return (
         <div>
             <Box
@@ -173,20 +183,20 @@ useEffect(()=>{
                                                          {
                                                              order.status == 1 ?
                                                                  <Stack direction='row'>
-                                                                     <MDBBtn color='link' rounded size='sm'>
+                                                                     <MDBBtn color='link' rounded size='sm' onClick={()=>updateStatus(order._id,2)}>
                                                                          Accept
                                                                      </MDBBtn>
-                                                                     <MDBBtn color='link' rounded size='sm'>
+                                                                     <MDBBtn color='link' rounded size='sm' onClick={()=>updateStatus(order._id,5)}>
                                                                          Reject
                                                                      </MDBBtn>
                                                                  </Stack>:
                                                                  order.status == 2 ?
                                                                         <Stack >
-                                                                            <MDBBtn color='link' rounded size='sm'>Ready?? </MDBBtn>
+                                                                            <MDBBtn color='link' rounded size='sm' onClick={()=>updateStatus(order._id,3)}>Ready?? </MDBBtn>
 
                                                                         </Stack> :
                                                                         <Stack >
-                                                                            <MDBBtn color='link' rounded size='sm'> Completed?</MDBBtn>
+                                                                            <MDBBtn color='link' rounded size='sm' onClick={()=>updateStatus(order._id,4)}> Completed?</MDBBtn>
 
                                                                         </Stack>
                                                          }
@@ -229,13 +239,13 @@ useEffect(()=>{
                                                             <div className='d-flex align-items-center'>
 
                                                                 <div className='ms-3'>
-                                                                    <p className='fw-bold mb-1'>{order.id}</p>
+                                                                    <p className='fw-bold mb-1'>{order._id}</p>
 
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <p className='fw-normal mb-1'>{order.user_id}</p>
+                                                            <p className='fw-normal mb-1'>{order.user}</p>
 
                                                         </td>
                                                         <td>
@@ -247,10 +257,11 @@ useEffect(()=>{
 
                                                         </td>
                                                         <td>
-                                                            <p className='fw-normal mb-1'>{order.dishes.map((dish)=>{
+                                                            <p className='fw-normal mb-1'>{order.dishes.map((d)=>{
                                                                 return (
                                                                     <div>
-                                                                        <p className='fw-normal mb-1'>{dish.dish_id + ' x ' + dish.quantity}</p>
+                                                                        <p className='fw-normal mb-1'>{d.dish.name + ' x '
+                                                                            + d.quantity}</p>
                                                                     </div>
                                                                 )
                                                             })}</p>
@@ -294,13 +305,13 @@ useEffect(()=>{
                                                             <div className='d-flex align-items-center'>
 
                                                                 <div className='ms-3'>
-                                                                    <p className='fw-bold mb-1'>{order.id}</p>
+                                                                    <p className='fw-bold mb-1'>{order._id}</p>
 
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <p className='fw-normal mb-1'>{order.user_id}</p>
+                                                            <p className='fw-normal mb-1'>{order.user}</p>
 
                                                         </td>
                                                         <td>
@@ -313,9 +324,10 @@ useEffect(()=>{
                                                         </td>
                                                         <td>
                                                             <p className='fw-normal mb-1'>{order.dishes.map((dish)=>{
-                                                                return(
+                                                                return (
                                                                     <div>
-                                                                    <p className='fw-normal mb-1'>{dish.dish_id + ' x ' + dish.quantity}</p>
+                                                                        <p className='fw-normal mb-1'>{dish.dish.name + ' x '
+                                                                            + dish.quantity}</p>
                                                                     </div>
                                                                 )
                                                             })}</p>

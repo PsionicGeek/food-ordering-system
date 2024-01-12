@@ -52,7 +52,7 @@ function Alldish() {
             <PerslideImage src={ele.image} alt={ele.category.name}></PerslideImage>
             <p>{ele.name}{' '}[{ele.quantity}]</p>
             <span style={{ display: 'block' }}>₹{ele.price}
-            <SlideCartButton  onClick={order}>Order</SlideCartButton>{'  '}
+
             <SlideCartButton  onClick={() => AddtoCart(ele)}>+Add to Cart</SlideCartButton>
             </span>
           </Perslide>

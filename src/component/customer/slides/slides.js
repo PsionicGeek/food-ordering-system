@@ -26,6 +26,7 @@ function AddtoCart(ele){
     dispatch(addToCart(ele));
 }
 function order(){
+
   alert('Your order placed successfully!!')
 
 }
@@ -61,7 +62,7 @@ function nextImage(){
                     <p>{ele.name}</p>
                     <span style={{display:'block'}}>₹{ele.price}
 
-                    <SlideCartButton button onClick={order}>Order</SlideCartButton>{'  '}<SlideCartButton onClick={()=>AddtoCart(ele)}>+Add toCart</SlideCartButton>
+                    <SlideCartButton onClick={()=>AddtoCart(ele)}>+Add toCart</SlideCartButton>
                     </span>
                 </Perslide>
                 </>

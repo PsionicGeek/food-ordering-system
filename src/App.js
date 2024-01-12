@@ -25,6 +25,7 @@ import Orders from "./component/admin/components/Orders";
 import Users from "./component/admin/components/Users";
 import AdminProfile from "./component/admin/components/Profile";
 import Dashboard from "./component/admin/components/Dashboard";
+import SignUp from "./component/customer/SignUp/SignUpUser";
 
 
 
@@ -42,7 +43,7 @@ const router= createBrowserRouter(
           <Route path='/alldish' element={<Alldish />}/>
           <Route path='/menu' element={<Menu />}/>
           <Route path="/login" element={<AdminLogin />} />
-
+            <Route path="/signup" element={<SignUp />} />
           <Route path="/admin" element={<AdminHome />}>
             <Route path="/admin/dashboard"  element={<Dashboard/>} />
 
