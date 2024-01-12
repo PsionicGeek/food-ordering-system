@@ -5,6 +5,7 @@ import bg4 from '../../../images/bg11.jpg';
 import Footer from '../footer/footer';
 import Header from '../Header/Header';
 import customerController from '../../../services/customer/customerServices';
+import {useNavigate} from "react-router-dom";
 
 const LargeContainer = styled.div`
   margin-left: 20%;
@@ -121,10 +122,16 @@ const AddressContent = () => (
 );
 
 const Profile = () => {
+  const navigateTo = useNavigate();
+
   const [selectedOption, setSelectedOption] = useState('profile');
   const [allOrders, setAllOrders] = useState([]);
 
   useEffect(() => {
+    if (!localStorage.getItem('token')) {
+        navigateTo('/login');
+        return;
+    }
     getAllOrders();
   }, []);
 

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { clearCartItem, addToCart, decreaseItem, removeItemCart } from './cartSlice';
 import Footer from '../footer/footer';
 import { CartBackground, CartContainer, CartMain, CartMainBody, CartMainBodyButton, CartMainBodyDiv, CartMainBodyDiv2, CartMainBodyImage, CartMainHead, CartMainHeadH3, CartMainHeadH3H3, ClearCartButton, OrderButton, QuantityButton } from './Cartstyle';
+import customerServices from "../../../services/customer/customerServices";
 function Cart() {
     const cart=useSelector((state)=>state.cart);
     const dispatch=useDispatch();
@@ -22,7 +23,18 @@ function Cart() {
         dispatch(clearCartItem())
     }
     function order(){
-        alert('Your order placed successfully!!')
+        const items=cart.cartItems.map((ele)=>{
+            return{
+                "id":ele._id,
+                "quantity":ele.cartTotalQuantity,
+                "dishName":ele.name,
+            }
+        });
+        const data=customerServices.order(items).then((data)=>{
+            console.log(data);
+            alert('Your order placed successfully!!');
+
+        });
         dispatch(clearCartItem())
     }
 
@@ -38,7 +50,7 @@ function Cart() {
                     </div>
                 ) :(
                     <CartMain>
-                        
+
 
                         {
                             cart.cartItems?.map(cartItems=>(
@@ -53,10 +65,10 @@ function Cart() {
 
                                      <CartMainBodyDiv2>₹{cartItems.price}</CartMainBodyDiv2>
 
-                                     
+
                                         <QuantityButton onClick={()=>decrease(cartItems)}>-</QuantityButton><span style={{marginTop:'10px'}}>{cartItems.cartTotalQuantity}</span>
                                         <QuantityButton  onClick={()=>increase(cartItems)}>+</QuantityButton>
-                                     
+
 
                                      <CartMainBodyDiv2>
                                         <div style={{color:'green',fontSize:'23px'}}>₹{cartItems.cartTotalQuantity*cartItems.price} </div>

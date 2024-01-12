@@ -38,10 +38,10 @@ const router= createBrowserRouter(
           <Route path='/' element={<CustomerHome />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/login' element={<Login />} />
+
           <Route path='/alldish' element={<Alldish />}/>
           <Route path='/menu' element={<Menu />}/>
-          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/login" element={<AdminLogin />} />
 
           <Route path="/admin" element={<AdminHome />}>
             <Route path="/admin/dashboard"  element={<Dashboard/>} />

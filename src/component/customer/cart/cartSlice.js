@@ -11,6 +11,10 @@ import { createSlice } from "@reduxjs/toolkit";
         initialState,
         reducers:{
         addToCart(state,action){
+            if(!localStorage.getItem('isLogged')){
+                alert('Please Login First');
+                return;
+            }
             const itemIndex=state.cartItems.findIndex((ele)=>ele._id===action.payload._id);
             state.cartTotalQuantity+=1;
             state.totalAmount+=parseInt(action.payload.price);
@@ -47,6 +51,7 @@ import { createSlice } from "@reduxjs/toolkit";
          clearCartItem(state,action){
              state.cartItems=[];
              state.cartTotalQuantity=0;
+                state.totalAmount=0;
          },
          getTotals(state,action){
             let {total,quantity}= state.cartItems.reduce((cartTotal,ele)=>{
